@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 enum MakeColor{UZMOBILE,MOBIUZ}
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with AddMess{
   PageController? controller;
   int currentIndex=0;
   @override
@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
               child: Center(
                 child: FaIcon(FontAwesomeIcons.creditCard,size: 23.5,),
               ),
-              onTap: (){},
+              onTap: ()=>showDial(context),
             ),
             SizedBox(width: 10,),
             InkWell(
@@ -347,4 +347,39 @@ Widget indicator(BuildContext context,{isActive=false}){
       borderRadius: BorderRadius.circular(size.width*0.035/2),
     ),
   );
+}
+
+mixin AddMess{
+ showDial(BuildContext context){
+   showDialog(
+       context: context,
+       builder:(context)=>SimpleDialog(
+         title: Text('To`lov usullari'),
+         shape: RoundedRectangleBorder(
+           borderRadius: BorderRadius.circular(20),
+         ),
+         children: [
+           ListTile(
+             isThreeLine: false,
+             title: Text('Click',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600)),
+             trailing: Image.asset('assets/icons/click.png',fit: BoxFit.cover,),
+           ),
+           Divider(
+             thickness: 3,
+             color: Colors.grey,
+             indent: 20,
+             endIndent: 20,
+           ),
+           ListTile(
+             isThreeLine: false,
+             title: Text('Payme',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
+             trailing: Image.asset('assets/icons/payme.png',fit: BoxFit.cover,),
+           ),
+           TextButton(
+             onPressed: ()=>Navigator.of(context).pop(),
+             child:Text('orqaga',style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600)),
+           ),
+         ],
+   ));
+ }
 }
