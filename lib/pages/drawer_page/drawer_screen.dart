@@ -72,6 +72,7 @@ class _DrawerScreenState extends State<DrawerScreen> with AdditionalMessages{
                             ),
                             SizedBox(height: size.width*0.02,),
                             Text(valueMain.getCurrentMotiv,style: TextStyle(color: Colors.white,fontSize:size.width*0.045,fontWeight: FontWeight.w600),),
+
                           ],
                         ),
                       ),
