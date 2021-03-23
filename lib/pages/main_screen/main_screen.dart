@@ -7,6 +7,7 @@ import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
 import 'package:ussd_uz/pages/fourth_page/fourth_screen.dart';
 import 'package:ussd_uz/pages/home_screen/home_screen.dart';
+import 'package:ussd_uz/pages/internet_paketlar/internet_page.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
@@ -124,11 +125,17 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                       mainAxisSpacing: size.width*0.025,
                       crossAxisSpacing: size.width*0.08,
                       children: [
-                        _myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),
+                        //#internet paket
+                        InkWell(child: _myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),onTap:()=>Navigator.pushNamed(context,InternetPage.id),),
+                        //#ussd kodlar
                         _myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),
+                        //#tarif rejalari
                         _myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text: 'Tarif rejalari'),
+                        //#xizmatlar
                         _myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:'Xizmatlar'),
+                        //#daqiqa toplamlari
                         _myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:'Daqiqa to`plamlari'),
+                        //#sms to`plamlar
                         _myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text: "SMS to`plamlar"),
                       ],
                     ),
@@ -380,6 +387,7 @@ mixin AddMess{
              child:Text('orqaga',style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600)),
            ),
          ],
-   ));
+   ),
+   );
  }
 }

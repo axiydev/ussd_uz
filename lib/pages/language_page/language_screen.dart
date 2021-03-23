@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:ussd_uz/pages/language_page/language_provider.dart';
 class LanguageScreen extends StatefulWidget {
   static const String id='language_screen';
-  static Widget screen()=>ChangeNotifierProvider(
+  static Widget screen()=>ChangeNotifierProvider<LanguageProvider>(
     create:(context)=>LanguageProvider(),
     child: LanguageScreen(),
   );

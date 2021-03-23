@@ -5,7 +5,7 @@ import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/pages/home_screen/home_provider.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 class HomeScreen extends StatefulWidget {
-  static Widget screen()=>ChangeNotifierProvider(
+  static Widget screen()=>ChangeNotifierProvider<HomeProvider>(
       create:(context)=>HomeProvider(),
       child: HomeScreen(),
    );

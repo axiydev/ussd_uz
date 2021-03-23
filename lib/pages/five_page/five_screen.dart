@@ -5,7 +5,7 @@ import 'package:ussd_uz/pages/five_page/five_provider.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 class FiveScreen extends StatefulWidget {
   static const String id="five_page";
-  static Widget screen()=>ChangeNotifierProvider(
+  static Widget screen()=>ChangeNotifierProvider<FiveProvider>(
       create: (context)=>FiveProvider(),
       child: FiveScreen(),
   );

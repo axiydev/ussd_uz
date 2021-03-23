@@ -6,7 +6,8 @@ import 'package:ussd_uz/pages/third_screen/third_provider.dart';
 
 class ThirdScreen extends StatefulWidget {
   static final String id='third_screen';
-  static Widget screen()=>ChangeNotifierProvider(
+
+  static Widget screen()=>ChangeNotifierProvider<ThirdProvider>(
     create:(context)=>ThirdProvider(),
     child: ThirdScreen(),
   );

@@ -5,7 +5,7 @@ import 'package:ussd_uz/pages/fourth_page/fourth_provider.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 class FourthScreen extends StatefulWidget {
   static const String id="fourth_page";
-  static Widget screen()=>ChangeNotifierProvider(
+  static Widget screen()=>ChangeNotifierProvider<FourthProvider>(
       create:(context)=>FourthProvider(),
       child: FourthScreen(),
   );

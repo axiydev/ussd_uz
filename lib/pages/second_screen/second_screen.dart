@@ -5,7 +5,7 @@ import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_provider.dart';
 class SecondScreen extends StatefulWidget {
   static const String id="second_screen";
-  static Widget screen()=>ChangeNotifierProvider(
+  static Widget screen()=>ChangeNotifierProvider<SecondProvider>(
     create:(context)=>SecondProvider(),
     child: SecondScreen(),
   );

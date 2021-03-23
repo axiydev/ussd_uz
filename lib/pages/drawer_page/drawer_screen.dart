@@ -8,7 +8,7 @@ import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 
 class DrawerScreen extends StatefulWidget {
   static final String id="drawer_screen";
-  static Widget screen()=>ChangeNotifierProvider(
+  static Widget screen()=>ChangeNotifierProvider<DrawerScreenModel>(
     create:(context)=>DrawerScreenModel(),
     child: DrawerScreen(),
   );
@@ -66,12 +66,12 @@ class _DrawerScreenState extends State<DrawerScreen> with AdditionalMessages{
                               width: double.infinity,
                               alignment: Alignment.center,
                               child: Image(
-                                image:AssetImage('assets/icons/ums.png'),
+                                image:AssetImage(valueMain.getCurrentLogo),
                                 fit: BoxFit.cover,
                               ),
                             ),
                             SizedBox(height: size.width*0.02,),
-                            Text('Ishonchli aloqa mobil operatori',style: TextStyle(color: Colors.white,fontSize:size.width*0.045,fontWeight: FontWeight.w600),),
+                            Text(valueMain.getCurrentMotiv,style: TextStyle(color: Colors.white,fontSize:size.width*0.045,fontWeight: FontWeight.w600),),
                           ],
                         ),
                       ),

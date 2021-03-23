@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-class FiveProvider extends ChangeNotifier{
+class FiveProvider with ChangeNotifier{
 
 }
