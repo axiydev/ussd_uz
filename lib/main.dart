@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:ussd_uz/pages/home_screen/home_screen.dart';
 import 'package:ussd_uz/pages/internet_paketlar/internet_page.dart';
 import 'package:ussd_uz/pages/language_page/language_screen.dart';
@@ -6,7 +7,10 @@ import 'package:ussd_uz/pages/main_screen/main_screen.dart';
 import 'package:ussd_uz/pages/splash_screen/splash_screen.dart';
 import 'package:ussd_uz/theme.dart';
 
-void main()=>runApp(MyApp());
+void main()async{
+  
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override

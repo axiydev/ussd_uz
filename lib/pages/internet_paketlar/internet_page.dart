@@ -47,129 +47,131 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
   Widget build(BuildContext context) {
     final Size size=MediaQuery.of(context).size;
     return Consumer<InternetProvider>(
-      builder: (BuildContext context,valueInternet,child)=>Scaffold(
-          appBar: AppBar(
-            elevation:0.0,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: (){
-                Navigator.of(context).pop();
-              },
-              splashColor: Colors.red,
-            ),
-            centerTitle: false,
-            actions: [
-              IconButton(
-                onPressed: (){},
-                icon: Icon(Icons.info_outline),
+      builder: (context,value,child){
+        return Scaffold(
+            appBar: AppBar(
+              elevation:0.0,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
                 splashColor: Colors.red,
               ),
-            ],
-            title:Text('Internet paketlar'),
-          ),
-          body:SafeArea(
-              child:Stack(
-                children: [
-                  PageView(
-                    controller: this.controller,
-                    onPageChanged: (index){
-                      valueInternet.getEq(index);
-                      currentIndex=valueInternet.getIn;
-                    },
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top:size.width*0.23),
-                        height: size.height,
-                        width: size.width,
-                        color: Colors.white,
-                        child: ListView.builder(
-                            itemCount:other?.length,
-                            shrinkWrap: true,
-                            physics: AlwaysScrollableScrollPhysics(),
-                            itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top:size.width*0.23),
-                        height: size.height,
-                        width: size.width,
-                        color: Colors.white,
-                        child: ListView.builder(
-                          itemCount:other?.length,
-                          shrinkWrap: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top:size.width*0.23),
-                        height: size.height,
-                        width: size.width,
-                        color: Colors.white,
-                        child: ListView.builder(
-                          itemCount:other?.length,
-                          shrinkWrap: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top:size.width*0.23),
-                        height: size.height,
-                        width: size.width,
-                        color: Colors.white,
-                        child: ListView.builder(
-                          itemCount:other?.length,
-                          shrinkWrap: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: size.width,
-                    height: size.height,
-                    child:Column(
+              centerTitle: false,
+              actions: [
+                IconButton(
+                  onPressed: (){},
+                  icon: Icon(Icons.info_outline),
+                  splashColor: Colors.red,
+                ),
+              ],
+              title:Text('Internet paketlar'),
+            ),
+            body:SafeArea(
+                child: Stack(
                       children: [
+                        PageView(
+                          controller: this.controller,
+                          onPageChanged: (index){
+                            value.getEq(index);
+                            currentIndex=value.getIn;
+                          },
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top:size.width*0.23),
+                              height: size.height,
+                              width: size.width,
+                              color: Colors.white,
+                              child: ListView.builder(
+                                itemCount:other?.length,
+                                shrinkWrap: true,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top:size.width*0.23),
+                              height: size.height,
+                              width: size.width,
+                              color: Colors.white,
+                              child: ListView.builder(
+                                itemCount:other?.length,
+                                shrinkWrap: true,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top:size.width*0.23),
+                              height: size.height,
+                              width: size.width,
+                              color: Colors.white,
+                              child: ListView.builder(
+                                itemCount:other?.length,
+                                shrinkWrap: true,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top:size.width*0.23),
+                              height: size.height,
+                              width: size.width,
+                              color: Colors.white,
+                              child: ListView.builder(
+                                itemCount:other?.length,
+                                shrinkWrap: true,
+                                physics: AlwaysScrollableScrollPhysics(),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                              ),
+                            ),
+                          ],
+                        ),
                         Container(
-                          height: size.width*0.1,
-                          color: Colors.white,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: lt?.length,
-                            itemBuilder:(context,index)=>InkWell(child: _myWidget(context,isActive:index==valueInternet.getIn?true:false, str:lt![index],),onTap: (){
-                              valueInternet.getEq(index);
-                              controller?.animateToPage(valueInternet.getIn, duration:Duration(milliseconds: 200), curve:Curves.easeIn);
-                              },),
+                          width: size.width,
+                          height: size.height,
+                          child:Column(
+                            children: [
+                              Container(
+                                height: size.width*0.1,
+                                color: Colors.white,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: lt?.length,
+                                  itemBuilder:(context,index)=>InkWell(child: _myWidget(context,isActive:index==value.getIn?true:false, str:lt![index],),onTap: (){
+                                    value.getEq(index);
+                                    controller?.animateToPage(value.getIn, duration:Duration(milliseconds: 200), curve:Curves.easeIn);
+                                  },),
+                                ),
+                              ),
+                              Container(
+                                height: size.width*0.13,
+                                width: size.width,
+                                color: Colors.white,
+                                padding: EdgeInsets.symmetric(horizontal: size.width*0.2),
+                                child:  Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: firstPageColor,
+                                  ),
+                                  width: double.infinity,
+                                  // ignore: deprecated_member_use
+                                  child: FlatButton(
+                                    onPressed: (){},
+                                    child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 18),),
+                                  ),
+                                ).center(),
+                              ),
+                            ],
                           ),
                         ),
-                        Container(
-                          height: size.width*0.13,
-                          width: size.width,
-                          color: Colors.white,
-                          padding: EdgeInsets.symmetric(horizontal: size.width*0.2),
-                          child:  Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: firstPageColor,
-                            ),
-                            width: double.infinity,
-                            // ignore: deprecated_member_use
-                            child: FlatButton(
-                              onPressed: (){},
-                              child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 18),),
-                            ),
-                          ).center(),
-                        ),
+
                       ],
                     ),
-                  ),
-
-                ],
-              )
-          )
-      ),
+                )
+        );
+      },
     );
   }
 }

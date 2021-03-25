@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
@@ -67,7 +68,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
               child: Center(
                 child: FaIcon(FontAwesomeIcons.shareAlt,size: 23.5,),
               ),
-              onTap: (){},
+              onTap: ()=>shareInfo(context, 'Axiprogrammer@gmail.com'),
             ),
             SizedBox(width: 12,),
             InkWell(
@@ -181,6 +182,13 @@ class _MainScreenState extends State<MainScreen> with AddMess{
         ),
       ),
       bottomNavigationBar: _myBottomNav(context),
+    );
+  }
+  void shareInfo(BuildContext context,String? text){
+    final String str=text.toString();
+    Share.share(
+      str,
+      subject: "$str",
     );
   }
 }
