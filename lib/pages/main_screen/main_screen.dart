@@ -375,6 +375,7 @@ mixin AddMess{
          shape: RoundedRectangleBorder(
            borderRadius: BorderRadius.circular(20),
          ),
+
          children: [
            ListTile(
              isThreeLine: false,
