@@ -384,7 +384,6 @@ mixin AddMess{
                Share.share('Click',subject: 'Click');
              },
            ),
-
            Divider(
              thickness: 3,
              color: Colors.grey,
