@@ -44,6 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text('Ishonchli aloqa mobil operatori',textAlign: TextAlign.center,style: TextStyle(fontSize:size.width*0.035,fontWeight: FontWeight.w600,color:Colors.white),),
               ),
             ),
+            Positioned(
+              bottom: 0.0,
+                child:Container(
+                  height: size.width*0.5,
+                  width: size.width,
+                  color: Colors.white,
+                ),
+            ),
           ],
         ),
       ),

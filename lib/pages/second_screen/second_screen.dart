@@ -43,6 +43,14 @@ class _SecondScreenState extends State<SecondScreen> {
                 child: Text('Raqamli imkoniyatlar sari',textAlign: TextAlign.center,style: TextStyle(fontSize:size.width*0.035,fontWeight: FontWeight.w600,color:Colors.white),),
               ),
             ),
+            Positioned(
+              bottom: 0.0,
+              child:Container(
+                height: size.width*0.5,
+                width: size.width,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),

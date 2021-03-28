@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
               child: Center(
                 child: FaIcon(FontAwesomeIcons.paperPlane,size: 23.5,),
               ),
-              onTap: (){},
+              onTap: ()=>shareInfo(context,'Telegram guruh'),
             ),
             SizedBox(width: 12,),
             InkWell(
@@ -121,7 +121,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                     child: GridView.count(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      padding: EdgeInsets.only(top: size.width*0.29,left: size.width*0.1,right: size.width*0.1),
+                      padding: EdgeInsets.only(top: size.width*0.34,left: size.width*0.1,right: size.width*0.1),
                       crossAxisCount:2,
                       mainAxisSpacing: size.width*0.025,
                       crossAxisSpacing: size.width*0.08,
@@ -176,7 +176,6 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                   children: indicatorBuilder(context,currentIndex),
                 ),
               ),
-
             ),
           ],
         ),
@@ -195,87 +194,90 @@ class _MainScreenState extends State<MainScreen> with AddMess{
 Widget _myBottomNav(BuildContext context,){
   final Size size=MediaQuery.of(context).size;
   return Consumer<MainProvider>(
-    builder: (context,value,child)=>ClipPath(
-      clipper:MyClipper(),
-      child: Container(
-          width:size.width,
-          height: size.width*0.23,
-          color: value.currentColInfo,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                child: Transform.translate(
-                  offset: Offset(0,size.width*0.035),
-                  child: Container(
-                    height: size.width*0.11,
-                    width: size.width*0.11,
-                    child: Center(
-                      child: FaIcon(FontAwesomeIcons.headphonesAlt,color: Colors.white,),
+    builder: (context,value,child)=>Container(
+      color: Colors.white,
+      child: ClipPath(
+        clipper:MyClipper(),
+        child: Container(
+            width:size.width,
+            height: size.width*0.23,
+            color: value.currentColInfo,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  child: Transform.translate(
+                    offset: Offset(0,size.width*0.035),
+                    child: Container(
+                      height: size.width*0.11,
+                      width: size.width*0.11,
+                      child: Center(
+                        child: FaIcon(FontAwesomeIcons.headphonesAlt,color: Colors.white,),
+                      ),
                     ),
                   ),
+                  onTap: (){},
                 ),
-                onTap: (){},
-              ),
-              SizedBox(width: size.width*0.04,),
-              InkWell(
-                child: Transform.translate(
-                  offset:Offset(0,size.width*0.02),
-                  child: Container(
-                    height: size.width*0.11,
-                    width: size.width*0.11,
-                    child: Center(
-                      child: FaIcon(FontAwesomeIcons.globe,color: Colors.white,),
+                SizedBox(width: size.width*0.04,),
+                InkWell(
+                  child: Transform.translate(
+                    offset:Offset(0,size.width*0.02),
+                    child: Container(
+                      height: size.width*0.11,
+                      width: size.width*0.11,
+                      child: Center(
+                        child: FaIcon(FontAwesomeIcons.globe,color: Colors.white,),
+                      ),
                     ),
                   ),
+                  onTap: (){},
                 ),
-                onTap: (){},
-              ),
-              SizedBox(width: size.width*0.04,),
-              InkWell(
-                child:  Container(
-                  margin: EdgeInsets.only(top:size.width*0.02),
-                  height: size.width*0.145,
-                  width: size.width*0.145,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  child: Center(
-                    child: Icon(Icons.home,size: size.width*0.114,color:value.currentColInfo,),
-                  ),
-                ),
-                onTap: (){},
-              ),
-              SizedBox(width: size.width*0.04,),
-              InkWell(
-                child: Transform.translate(
-                  offset:Offset(0,size.width*0.02),
-                  child: Container(
-                    height: size.width*0.11,
-                    width: size.width*0.11,
+                SizedBox(width: size.width*0.04,),
+                InkWell(
+                  child:  Container(
+                    margin: EdgeInsets.only(top:size.width*0.02),
+                    height: size.width*0.145,
+                    width: size.width*0.145,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
                     child: Center(
-                      child: FaIcon(FontAwesomeIcons.wallet,color: Colors.white,),
+                      child: Icon(Icons.home,size: size.width*0.114,color:value.currentColInfo,),
                     ),
                   ),
+                  onTap: (){},
                 ),
-                onTap: (){},
-              ),
-              SizedBox(width: size.width*0.04,),
-              InkWell(
-                child: Transform.translate(
-                  offset:Offset(0,size.width*0.035),
-                  child: Container(
-                    height: size.width*0.11,
-                    width: size.width*0.11,
-                    child: Center(
-                      child: FaIcon(FontAwesomeIcons.cog,color: Colors.white,),
+                SizedBox(width: size.width*0.04,),
+                InkWell(
+                  child: Transform.translate(
+                    offset:Offset(0,size.width*0.02),
+                    child: Container(
+                      height: size.width*0.11,
+                      width: size.width*0.11,
+                      child: Center(
+                        child: FaIcon(FontAwesomeIcons.wallet,color: Colors.white,),
+                      ),
                     ),
-                  ),),
-                onTap: (){},
-              ),
-            ],
-          )
+                  ),
+                  onTap: (){},
+                ),
+                SizedBox(width: size.width*0.04,),
+                InkWell(
+                  child: Transform.translate(
+                    offset:Offset(0,size.width*0.035),
+                    child: Container(
+                      height: size.width*0.11,
+                      width: size.width*0.11,
+                      child: Center(
+                        child: FaIcon(FontAwesomeIcons.cog,color: Colors.white,),
+                      ),
+                    ),),
+                  onTap: (){},
+                ),
+              ],
+            )
+        ),
       ),
     ),
   );
@@ -378,6 +380,9 @@ mixin AddMess{
              isThreeLine: false,
              title: Text('Click',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600)),
              trailing: Image.asset('assets/icons/click.png',fit: BoxFit.cover,),
+             onTap: (){
+               Share.share('Click',subject: 'Click');
+             },
            ),
            Divider(
              thickness: 3,
@@ -389,6 +394,10 @@ mixin AddMess{
              isThreeLine: false,
              title: Text('Payme',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600),),
              trailing: Image.asset('assets/icons/payme.png',fit: BoxFit.cover,),
+             onTap:(){
+               Share.share('Payme',subject: 'Payme');
+
+             }
            ),
            TextButton(
              onPressed: ()=>Navigator.of(context).pop(),

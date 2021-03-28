@@ -45,6 +45,14 @@ class _ThirdScreenState extends State<ThirdScreen> {
                 child: Text('Hayotni yaxshilik sari o`zgartirib!',textAlign: TextAlign.center,style: TextStyle(fontSize:size.width*0.035,fontWeight: FontWeight.w600,color:Colors.white),),
               ),
             ),
+            Positioned(
+              bottom: 0.0,
+              child:Container(
+                height: size.width*0.5,
+                width: size.width,
+                color: Colors.white,
+              ),
+            ),
           ],
         ),
       ),

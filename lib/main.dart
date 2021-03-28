@@ -8,7 +8,8 @@ import 'package:ussd_uz/pages/splash_screen/splash_screen.dart';
 import 'package:ussd_uz/theme.dart';
 
 void main()async{
-  
+  // await Hive.initFlutter();
+  // await Hive.openBox("hive_db");
   runApp(MyApp());
 }
 
