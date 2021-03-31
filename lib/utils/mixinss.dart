@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet_model.dart';
 
@@ -16,7 +17,9 @@ mixin AddMessText{
           children: [
             Text("${package.getStrMb} MB",),
             IconButton(
-              onPressed: (){},
+              onPressed: (){
+                Share.share('${package.getStrMb}',subject: "Ulashish");
+              },
               icon:Icon(Icons.share),
             )
           ],

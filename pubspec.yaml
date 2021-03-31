@@ -16,8 +16,8 @@ dependencies:
   hive: ^2.0.0
   hive_flutter: ^1.0.0
   shared_preferences: ^2.0.5
-  dio: ^3.0.10
   share: ^2.0.1
+  http: ^0.13.1
 
 dev_dependencies:
   flutter_test:

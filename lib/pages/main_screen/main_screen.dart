@@ -12,13 +12,17 @@ import 'package:ussd_uz/pages/internet_paketlar/internet_page.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
+import 'package:ussd_uz/utils/network/network_plus.dart';
 class MainScreen extends StatefulWidget {
   static const String id='main_screen';
-  static Widget screen()=>ChangeNotifierProvider(create:(context)=>MainProvider(),child: MainScreen(),);
+  static Widget screen()=>ChangeNotifierProvider(
+    create:(context)=>MainProvider(),
+    child: MainScreen(),
+  );
   @override
   _MainScreenState createState() => _MainScreenState();
 }
-enum MakeColor{UZMOBILE,MOBIUZ}
+
 class _MainScreenState extends State<MainScreen> with AddMess{
   PageController? controller;
   int currentIndex=0;
@@ -26,6 +30,10 @@ class _MainScreenState extends State<MainScreen> with AddMess{
   void initState(){
     super.initState();
     controller=PageController();
+    getT();
+  }
+  void getT()async{
+    NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response)=>print(response)).catchError((err)=>print("ERRRRRR:$err"));
   }
   @override
   Widget build(BuildContext context) {
@@ -127,17 +135,17 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                       crossAxisSpacing: size.width*0.08,
                       children: [
                         //#internet paket
-                        InkWell(child: _myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),onTap:()=>Navigator.pushNamed(context,InternetPage.id),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),onTap:()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPage.screen(value.currentColInfo)))),
                         //#ussd kodlar
-                        _myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),),
                         //#tarif rejalari
-                        _myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text: 'Tarif rejalari'),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text: 'Tarif rejalari'),),
                         //#xizmatlar
-                        _myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:'Xizmatlar'),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:'Xizmatlar'),),
                         //#daqiqa toplamlari
-                        _myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:'Daqiqa to`plamlari'),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:'Daqiqa to`plamlari'),),
                         //#sms to`plamlar
-                        _myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text: "SMS to`plamlar"),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text: "SMS to`plamlar"),),
                       ],
                     ),
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_provider.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
@@ -80,11 +81,12 @@ class _DrawerScreenState extends State<DrawerScreen> with AdditionalMessages{
                           width: double.infinity,
                           padding: EdgeInsets.only(left:size.width*0.05),
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               _customListTile(size: size, text:'Telegram kanal', icon:FontAwesomeIcons.telegram),
                               GestureDetector(child: _customListTile(size: size, text:'Biz bilan aloqa', icon:FontAwesomeIcons.idCardAlt,),onTap:()=>showMessage(context),),
                               _customListTile(size: size, text:'Tilni o`zgartirish', icon:FontAwesomeIcons.userCircle),
-                              _customListTile(size: size, text:'Ulashish', icon:FontAwesomeIcons.shareAlt),
+                              InkWell(child: _customListTile(size: size, text:'Ulashish', icon:FontAwesomeIcons.shareAlt),onTap: (){Share.share('Ulashish',subject: "Share");},),
                               _customListTile(size: size, text:'Baholash', icon:FontAwesomeIcons.star),
                               InkWell(child: _customListTile(size: size, text:'Biz haqimizda', icon:FontAwesomeIcons.infoCircle),onTap: ()=>showDia(context),),
                               _customListTile(size: size, text:'Uzimeida ro`yxatdan o`tish', icon:FontAwesomeIcons.clipboardCheck),
@@ -129,7 +131,9 @@ mixin AdditionalMessages{
         //Uri
         TextButton(
           child: Text('xat jo`natish'),
-          onPressed: (){},
+          onPressed: (){
+            Share.share('Savol:',subject: 'axiprogrammer@gmail.com');
+          },
         ),
       ],
     )

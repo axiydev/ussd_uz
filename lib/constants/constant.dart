@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+
 //colors
-Color firstPageColor=Color(0xFF1484C6);
-Color secondPageColor=Color(0xFFFE0000);
-Color thirdPageColor=Color(0xFF6D3DDF);
-Color fourthPageColor=Color(0xFFFAB325);
-Color fivePageColor=Color(0xFFF87434);
+const Color firstPageColor=Color(0xFF1484C6);
+const Color secondPageColor=Color(0xFFFE0000);
+const Color thirdPageColor=Color(0xFF6D3DDF);
+const Color fourthPageColor=Color(0xFFFAB325);
+const Color fivePageColor=Color(0xFFF87434);
+
+
 //#images
 final String firstPageLogo='assets/icons/uzmobile.png';
 final String secondPageLogo='assets/icons/ums.png';

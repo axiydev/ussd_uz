@@ -3,20 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet_model.dart';
+import 'package:ussd_uz/pages/home_screen/home_provider.dart';
 import 'package:ussd_uz/pages/internet_paketlar/internet_provider.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/utils/mixinss.dart';
+// ignore: must_be_immutable
 class InternetPage extends StatefulWidget {
   static const String id="internet_page";
-  static Widget screen()=>ChangeNotifierProvider<InternetProvider>(
+  late Color col;
+  InternetPage({required this.col});
+  static Widget screen(Color col)=>ChangeNotifierProvider<InternetProvider>(
     create:(context)=>InternetProvider(),
-    child: InternetPage(),
+    child: InternetPage(col: col,),
   );
   @override
   _InternetPageState createState() => _InternetPageState();
 }
 
-class _InternetPageState extends State<InternetPage> with AddMessText{
+class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
   List? other=[
     InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
     InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
@@ -38,18 +42,22 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
   "Salom dunyo",
   "Salom dunyo",
   ];
+  String t='reading our algorithms. What separates pseudocode from real code is that in pseudocode, we employ whatever expressive method is most clear and concise tospecify a given algorithm. Sometimes, the clearest method is English, so do notbe surprised if you come across an English phrase or sentence embedded withina section of real code. Another difference between pseudocode and real codeis that pseudocode is not typically concerned with issues of software engineering.Issues of data abstraction, modularity, and error handling are often ignored in orderto convey the essence of the algorithm more concisely.';
+  String content='Info';
   @override
  void initState(){
     super.initState();
     controller=PageController();
   }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     final Size size=MediaQuery.of(context).size;
+    final val=Provider.of<InternetProvider>(context);
     return Consumer<InternetProvider>(
-      builder: (context,value,child){
+      builder: (context,valueInternet,child){
         return Scaffold(
             appBar: AppBar(
+              backgroundColor:widget.col,
               elevation:0.0,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -61,7 +69,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
               centerTitle: false,
               actions: [
                 IconButton(
-                  onPressed: (){},
+                  onPressed: ()=>showInfo(context,t,content),
                   icon: Icon(Icons.info_outline),
                   splashColor: Colors.red,
                 ),
@@ -74,8 +82,8 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
                         PageView(
                           controller: this.controller,
                           onPageChanged: (index){
-                            value.getEq(index);
-                            currentIndex=value.getIn;
+                            valueInternet.getEq(index);
+                            currentIndex=valueInternet.getIn;
                           },
                           children: [
                             Container(
@@ -87,7 +95,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
                                 itemCount:other?.length,
                                 shrinkWrap: true,
                                 physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
                               ),
                             ),
                             Container(
@@ -99,7 +107,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
                                 itemCount:other?.length,
                                 shrinkWrap: true,
                                 physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
                               ),
                             ),
                             Container(
@@ -111,7 +119,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
                                 itemCount:other?.length,
                                 shrinkWrap: true,
                                 physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
                               ),
                             ),
                             Container(
@@ -123,7 +131,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
                                 itemCount:other?.length,
                                 shrinkWrap: true,
                                 physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index]),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color:widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
                               ),
                             ),
                           ],
@@ -139,27 +147,28 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
                                 child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
                                   itemCount: lt?.length,
-                                  itemBuilder:(context,index)=>InkWell(child: _myWidget(context,isActive:index==value.getIn?true:false, str:lt![index],),onTap: (){
-                                    value.getEq(index);
-                                    controller?.animateToPage(value.getIn, duration:Duration(milliseconds: 200), curve:Curves.easeIn);
+                                  itemBuilder:(context,index)=>InkWell(child: _myWidget(context,color:widget.col,isActive:index==valueInternet.getIn?true:false, str:lt![index],),onTap: (){
+                                    valueInternet.getEq(index);
+                                    controller?.animateToPage(valueInternet.getIn, duration:Duration(milliseconds: 200), curve:Curves.easeIn);
                                   },),
                                 ),
                               ),
                               Container(
-                                height: size.width*0.13,
+                                height: size.width*0.12,
                                 width: size.width,
                                 color: Colors.white,
+                                margin: EdgeInsets.only(top:5),
                                 padding: EdgeInsets.symmetric(horizontal: size.width*0.2),
                                 child:  Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: firstPageColor,
+                                    color: widget.col,
                                   ),
                                   width: double.infinity,
                                   // ignore: deprecated_member_use
                                   child: FlatButton(
                                     onPressed: (){},
-                                    child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 18),),
+                                    child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
                                   ),
                                 ).center(),
                               ),
@@ -175,7 +184,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText{
     );
   }
 }
-Widget _myWidget(context,{required bool isActive,required String str}){
+Widget _myWidget(context,{required bool isActive,required String str,required Color color}){
   return Consumer<InternetProvider>(
     builder: (context,value,child)=>Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -183,15 +192,15 @@ Widget _myWidget(context,{required bool isActive,required String str}){
           border:Border(
             bottom:isActive?BorderSide(
               width: 3,
-              color: firstPageColor,
+              color: color,
             ):BorderSide(width: 3,color: Colors.white),
           )
       ),
-      child:Text(str,style: TextStyle(color: firstPageColor),).center(),
+      child:Text(str,style: TextStyle(color: color),).center(),
     ),
   );
 }
-Widget myColumnWid(BuildContext context,{InternetPackages? package}){
+Widget myColumnWid(BuildContext context,{InternetPackages? package,required Color color}){
   final Size size=MediaQuery.of(context).size;
   return Container(
     height: size.width*0.3,
@@ -211,7 +220,7 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package}){
                   BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
                 ],
               ),
-              child:Text('${package?.mb}\nMB',textAlign:TextAlign.center,style: TextStyle(fontSize: 23,fontWeight: FontWeight.w600,color: firstPageColor),).center(),
+              child:Text('${package?.mb}\nMB',textAlign:TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: color),).center(),
             ),
           ),
         ),
@@ -230,7 +239,14 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package}){
                   BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
                 ],
               ),
-              child: Text('${package?.about}',style:TextStyle(fontSize: 17,color: firstPageColor)).center(),
+              child:Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${package?.mb} MB',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
+                  Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
+                ],
+              ).center(),
             ),
           ),
         ),
@@ -242,6 +258,32 @@ extension onCenter on Widget{
   Widget center(){
     return Center(
       child: this,
+    );
+  }
+}
+//ListTile(
+//                 title:Text('${package?.mb} MB',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
+//                 subtitle: Text('${package?.about}',style:TextStyle(fontSize: 16,color:Colors.grey[800])),
+//                 isThreeLine: false,
+//                 contentPadding: EdgeInsets.all(0),
+//               ),
+mixin InfoShow{
+  void showInfo(BuildContext context,[text,content]){
+    showDialog(context: context,
+        builder:(context)=>AlertDialog(
+         title: Text(content),
+         content: Text(text),
+          actions: [
+            // ignore: deprecated_member_use
+            FlatButton(
+              child: Text('orqaga'),
+              onPressed: ()=>Navigator.of(context).pop(),
+            ),
+          ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
     );
   }
 }
