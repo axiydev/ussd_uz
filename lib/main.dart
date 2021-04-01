@@ -8,10 +8,13 @@ import 'package:ussd_uz/pages/main_screen/main_screen.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/splash_screen/splash_screen.dart';
 import 'package:ussd_uz/theme.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
 
 void main()async{
-  // await Hive.initFlutter();
-  // await Hive.openBox("hive_db");
+  WidgetsFlutterBinding.ensureInitialized();
+  final hvPathDir=await path_provider.getApplicationDocumentsDirectory();
+  Hive.init(hvPathDir.path);
+  await Hive.openBox("hive_db");
   runApp(MyApp());
 }
 

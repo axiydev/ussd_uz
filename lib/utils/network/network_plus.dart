@@ -12,7 +12,7 @@ static Map<String,String> headers={
 
 static Future<String?> GET(String api,Map<String,String> params)async{
 
-   var uri=Uri.http(BASE_URL,api,params);
+   Uri uri=Uri.http(BASE_URL,api,params);
    http.Response response=await http.get(uri,headers:headers);
    if(response.statusCode==200){
      return response.body;

@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
+import 'package:ussd_uz/models/internet_screen_model.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
 import 'package:ussd_uz/pages/fourth_page/fourth_screen.dart';
@@ -12,7 +14,10 @@ import 'package:ussd_uz/pages/internet_paketlar/internet_page.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
+import 'package:ussd_uz/utils/hiveee/hive_dbb.dart';
 import 'package:ussd_uz/utils/network/network_plus.dart';
+import 'package:ussd_uz/utils/prefs/shared_pref.dart';
+
 class MainScreen extends StatefulWidget {
   static const String id='main_screen';
   static Widget screen()=>ChangeNotifierProvider(
@@ -26,6 +31,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> with AddMess{
   PageController? controller;
   int currentIndex=0;
+  ComInter? comInter;
   @override
   void initState(){
     super.initState();
@@ -33,7 +39,12 @@ class _MainScreenState extends State<MainScreen> with AddMess{
     getT();
   }
   void getT()async{
-    NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response)=>print(response)).catchError((err)=>print("ERRRRRR:$err"));
+    NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response) async {
+      ComInter obj=new ComInter.fromJson(jsonDecode(response!));
+      await HiveDB.storeInterInfo(obj);
+      comInter=obj;
+      print(obj.list.first.description);
+    }).catchError((err)=>print("ERRRRRR:$err"));
   }
   @override
   Widget build(BuildContext context) {
@@ -280,7 +291,8 @@ Widget _myBottomNav(BuildContext context,){
                       child: Center(
                         child: FaIcon(FontAwesomeIcons.cog,color: Colors.white,),
                       ),
-                    ),),
+                    ),
+                  ),
                   onTap: (){},
                 ),
               ],

@@ -5,7 +5,7 @@ import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet_model.dart';
 
 mixin AddMessText{
-  void showText(BuildContext context,{required InternetPackages package,String? otherButton}){
+  void showText(BuildContext context,{required InternetPackages package,String? otherButton,}){
     showDialog(
       context:context,
       builder:(context)=>SimpleDialog(
@@ -28,7 +28,7 @@ mixin AddMessText{
           Container(
             padding: EdgeInsets.only(left: 20,right: 20,),
             margin: EdgeInsets.only(bottom: 20),
-            child: Text('${package.getStrAbout}',textAlign: TextAlign.start,style: TextStyle(fontSize: 17),),
+            child: Text('${package.getStrAbout}\n${package.getStrDesc}',textAlign: TextAlign.start,style: TextStyle(fontSize: 17),),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 60),

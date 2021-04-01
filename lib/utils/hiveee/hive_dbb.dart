@@ -1,9 +1,19 @@
 import 'package:hive/hive.dart';
+import 'package:ussd_uz/models/internet_screen_model.dart';
 
 class HiveDB{
-  String getBox(){
+  static var box=Hive.box('hive_db');
 
-    return "Box";
+  static storeInterInfo(ComInter objInt)async{
+    await box.put('networkInfo',objInt.toJson());
+  }
 
+  static ComInter loadInterInfo(){
+    Map<String,dynamic> mp=box.get('networkInfo');
+    return ComInter.fromJson(mp);
+  }
+
+  static removeInfo()async{
+   await box.delete('networkInfo');
   }
 }

@@ -15,6 +15,7 @@ dependencies:
   get_it: ^6.0.0
   hive: ^2.0.0
   hive_flutter: ^1.0.0
+  path_provider: ^2.0.1
   shared_preferences: ^2.0.5
   share: ^2.0.1
   http: ^0.13.1
@@ -22,6 +23,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  hive_generator: ^1.0.1
+  build_runner: ^1.12.2
 
 flutter:
 

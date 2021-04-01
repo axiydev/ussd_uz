@@ -3,10 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet_model.dart';
+import 'package:ussd_uz/models/internet_screen_model.dart';
 import 'package:ussd_uz/pages/home_screen/home_provider.dart';
 import 'package:ussd_uz/pages/internet_paketlar/internet_provider.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
+import 'package:ussd_uz/utils/hiveee/hive_dbb.dart';
 import 'package:ussd_uz/utils/mixinss.dart';
+import 'package:ussd_uz/utils/prefs/shared_pref.dart';
 // ignore: must_be_immutable
 class InternetPage extends StatefulWidget {
   static const String id="internet_page";
@@ -21,26 +24,29 @@ class InternetPage extends StatefulWidget {
 }
 
 class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
-  List? other=[
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-    InternetPackages(mb:"500",about: "bu eng qulay tarif rejasi biz har doim mizozlarga yaxshi sharoit yaratishga harakat qilamiz"),
-  ];
+  ComInter? comIn;
+  List? month=[],day=[],night=[];
+  void getInfoInternetPack()async{
+    comIn=HiveDB.loadInterInfo();
+    print(comIn?.list.first.description);
+    comIn?.list.forEach((i){
+      if(i.operator==2&&i.muddat.split(" ")[0]=="30"){
+        month?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
+      }else if(i.operator==2&&i.muddat.split(" ")[0]=="1"){
+        day?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
+      }
+    });
+  }
   PageController? controller;
   int currentIndex=0;
   List? lt=[
-  "Salom dunyo",
-  "Salom dunyo",
-  "Salom dunyo",
-  "Salom dunyo",
-  "Salom dunyo",
+    "Oylik paketlar",
+    "Kunlik paketlar",
+    "Tungi internet",
+    "TAS-IX uchun paketlar",
+    "Internet non-stop",
+    "TA`LIM tarif rejasi uchun maxsus paketlar",
+    "Constructor TR abanentlari uchun internet paketlar",
   ];
   String t='reading our algorithms. What separates pseudocode from real code is that in pseudocode, we employ whatever expressive method is most clear and concise tospecify a given algorithm. Sometimes, the clearest method is English, so do notbe surprised if you come across an English phrase or sentence embedded withina section of real code. Another difference between pseudocode and real codeis that pseudocode is not typically concerned with issues of software engineering.Issues of data abstraction, modularity, and error handling are often ignored in orderto convey the essence of the algorithm more concisely.';
   String content='Info';
@@ -48,6 +54,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
  void initState(){
     super.initState();
     controller=PageController();
+    getInfoInternetPack();
   }
   @override
   Widget build(BuildContext context){
@@ -77,108 +84,145 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
               title:Text('Internet paketlar'),
             ),
             body:SafeArea(
-                child: Stack(
-                      children: [
-                        PageView(
-                          controller: this.controller,
-                          onPageChanged: (index){
-                            valueInternet.getEq(index);
-                            currentIndex=valueInternet.getIn;
-                          },
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top:size.width*0.23),
-                              height: size.height,
-                              width: size.width,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount:other?.length,
-                                shrinkWrap: true,
-                                physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top:size.width*0.23),
-                              height: size.height,
-                              width: size.width,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount:other?.length,
-                                shrinkWrap: true,
-                                physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top:size.width*0.23),
-                              height: size.height,
-                              width: size.width,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount:other?.length,
-                                shrinkWrap: true,
-                                physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top:size.width*0.23),
-                              height: size.height,
-                              width: size.width,
-                              color: Colors.white,
-                              child: ListView.builder(
-                                itemCount:other?.length,
-                                shrinkWrap: true,
-                                physics: AlwaysScrollableScrollPhysics(),
-                                itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color:widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                              ),
-                            ),
-                          ],
+              child: Stack(
+                children: [
+                  PageView(
+                    controller: this.controller,
+                    onPageChanged: (index){
+                      valueInternet.getEq(index);
+                      currentIndex=valueInternet.getIn;
+                    },
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top:size.width*0.23),
+                        height: size.height,
+                        width: size.width,
+                        color: Colors.white,
+                        child: ListView.builder(
+                          itemCount:month?.length,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: month![index],color: widget.col),onTap: ()=>showText(context,package: month![index],otherButton: 'Aktivlashtirish' ),),
                         ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top:size.width*0.23),
+                        height: size.height,
+                        width: size.width,
+                        color: Colors.white,
+                        child: ListView.builder(
+                          itemCount:day?.length,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: day![index],color: widget.col),onTap: ()=>showText(context,package: day![index],otherButton: 'Aktivlashtirish' ),),
+                        ),
+                      ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top:size.width*0.23),
+                      //   height: size.height,
+                      //   width: size.width,
+                      //   color: Colors.white,
+                      //   child: ListView.builder(
+                      //     itemCount:other?.length,
+                      //     shrinkWrap: true,
+                      //     physics: AlwaysScrollableScrollPhysics(),
+                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top:size.width*0.23),
+                      //   height: size.height,
+                      //   width: size.width,
+                      //   color: Colors.white,
+                      //   child: ListView.builder(
+                      //     itemCount:other?.length,
+                      //     shrinkWrap: true,
+                      //     physics: AlwaysScrollableScrollPhysics(),
+                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color:widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top:size.width*0.23),
+                      //   height: size.height,
+                      //   width: size.width,
+                      //   color: Colors.white,
+                      //   child: ListView.builder(
+                      //     itemCount:other?.length,
+                      //     shrinkWrap: true,
+                      //     physics: AlwaysScrollableScrollPhysics(),
+                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top:size.width*0.23),
+                      //   height: size.height,
+                      //   width: size.width,
+                      //   color: Colors.white,
+                      //   child: ListView.builder(
+                      //     itemCount:other?.length,
+                      //     shrinkWrap: true,
+                      //     physics: AlwaysScrollableScrollPhysics(),
+                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   margin: EdgeInsets.only(top:size.width*0.23),
+                      //   height: size.height,
+                      //   width: size.width,
+                      //   color: Colors.white,
+                      //   child: ListView.builder(
+                      //     itemCount:other?.length,
+                      //     shrinkWrap: true,
+                      //     physics: AlwaysScrollableScrollPhysics(),
+                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
+                      //   ),
+                      // ),
+                    ],
+
+                  ),
+                  Container(
+                    width: size.width,
+                    height: size.height,
+                    child:Column(
+                      children: [
                         Container(
-                          width: size.width,
-                          height: size.height,
-                          child:Column(
-                            children: [
-                              Container(
-                                height: size.width*0.1,
-                                color: Colors.white,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: lt?.length,
-                                  itemBuilder:(context,index)=>InkWell(child: _myWidget(context,color:widget.col,isActive:index==valueInternet.getIn?true:false, str:lt![index],),onTap: (){
-                                    valueInternet.getEq(index);
-                                    controller?.animateToPage(valueInternet.getIn, duration:Duration(milliseconds: 200), curve:Curves.easeIn);
-                                  },),
-                                ),
-                              ),
-                              Container(
-                                height: size.width*0.12,
-                                width: size.width,
-                                color: Colors.white,
-                                margin: EdgeInsets.only(top:5),
-                                padding: EdgeInsets.symmetric(horizontal: size.width*0.2),
-                                child:  Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: widget.col,
-                                  ),
-                                  width: double.infinity,
-                                  // ignore: deprecated_member_use
-                                  child: FlatButton(
-                                    onPressed: (){},
-                                    child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
-                                  ),
-                                ).center(),
-                              ),
-                            ],
+                          height: size.width*0.1,
+                          color: Colors.white,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: lt?.length,
+                            itemBuilder:(context,index)=>InkWell(child: _myWidget(context,color:widget.col,isActive:index==valueInternet.getIn?true:false, str:lt![index],),onTap: (){
+                              valueInternet.getEq(index);
+                              controller?.animateToPage(valueInternet.getIn, duration:Duration(milliseconds: 200), curve:Curves.easeIn);
+                            },),
                           ),
                         ),
-
+                        Container(
+                          height: size.width*0.12,
+                          width: size.width,
+                          color: Colors.white,
+                          margin: EdgeInsets.only(top:5),
+                          padding: EdgeInsets.symmetric(horizontal: size.width*0.2),
+                          child:  Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: widget.col,
+                            ),
+                            width: double.infinity,
+                            // ignore: deprecated_member_use
+                            child: FlatButton(
+                              onPressed: (){},
+                              child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
+                            ),
+                          ).center(),
+                        ),
                       ],
                     ),
-                )
+                  ),
+
+                ],
+              ),
+            ),
         );
       },
     );
@@ -220,7 +264,7 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
                   BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
                 ],
               ),
-              child:Text('${package?.mb}\nMB',textAlign:TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: color),).center(),
+              child:Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: color),).center(),
             ),
           ),
         ),
@@ -243,10 +287,10 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('${package?.mb} MB',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
+                  Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
                   Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
                 ],
-              ).center(),
+              ),
             ),
           ),
         ),
@@ -261,12 +305,7 @@ extension onCenter on Widget{
     );
   }
 }
-//ListTile(
-//                 title:Text('${package?.mb} MB',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
-//                 subtitle: Text('${package?.about}',style:TextStyle(fontSize: 16,color:Colors.grey[800])),
-//                 isThreeLine: false,
-//                 contentPadding: EdgeInsets.all(0),
-//               ),
+
 mixin InfoShow{
   void showInfo(BuildContext context,[text,content]){
     showDialog(context: context,
