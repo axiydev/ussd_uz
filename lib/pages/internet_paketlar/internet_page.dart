@@ -37,7 +37,6 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
       }
     });
   }
-
   PageController? controller;
   int currentIndex=0;
   List? lt=[
