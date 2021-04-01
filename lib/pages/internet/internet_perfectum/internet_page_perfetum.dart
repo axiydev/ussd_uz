@@ -133,7 +133,6 @@ class _InternetPagePerfectumState extends State<InternetPagePerfectum> with AddM
                             },),
                           ),
                         ),
-
                         Container(
                           height: size.width*0.12,
                           width: size.width,
