@@ -30,9 +30,9 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
     comIn=HiveDB.loadInterInfo();
     print(comIn?.list.first.description);
     comIn?.list.forEach((i){
-      if(i.operator==2&&i.muddat.split(" ")[0]=="30"){
+      if(i.operator==2&&i.muddat.split(" ").sorted()[0]=="30"){
         month?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
-      }else if(i.operator==2&&i.muddat.split(" ")[0]=="1"){
+      }else if(i.operator==2&&i.muddat.split(" ").sorted()[0]=="1"){
         day?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
       }
     });
@@ -324,5 +324,12 @@ mixin InfoShow{
           ),
         ),
     );
+  }
+}
+
+extension onSort on List{
+  List sorted(){
+    this.sort();
+    return this;
   }
 }

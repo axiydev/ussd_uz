@@ -9,7 +9,7 @@ class HiveDB{
   }
 
   static ComInter loadInterInfo(){
-    Map<String,dynamic> mp=box.get('networkInfo');
+    var mp=box.get('networkInfo');
     return ComInter.fromJson(mp);
   }
 
