@@ -5,48 +5,55 @@ import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet_model.dart';
 import 'package:ussd_uz/models/internet_screen_model.dart';
 import 'package:ussd_uz/pages/home_screen/home_provider.dart';
-import 'package:ussd_uz/pages/internet_paketlar/internet_provider.dart';
+import 'package:ussd_uz/pages/internet/internet_paketlar/internet_provider.dart';
+import 'package:ussd_uz/pages/internet/widgets_custom/widget_cust.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/utils/hiveee/hive_dbb.dart';
 import 'package:ussd_uz/utils/mixinss.dart';
 import 'package:ussd_uz/utils/prefs/shared_pref.dart';
+
+import 'internet_provider_ucell.dart';
 // ignore: must_be_immutable
-class InternetPage extends StatefulWidget {
-  static const String id="internet_page";
+class InternetPageUcell extends StatefulWidget {
+  static const String id="internet_page_ucell";
   late Color col;
-  InternetPage({required this.col});
-  static Widget screen(Color col)=>ChangeNotifierProvider<InternetProvider>(
-    create:(context)=>InternetProvider(),
-    child: InternetPage(col: col,),
+  InternetPageUcell({required this.col});
+  static Widget screen(Color col)=>ChangeNotifierProvider<InternetProviderUcell>(
+    create:(context)=>InternetProviderUcell(),
+    child: InternetPageUcell(col: col,),
   );
   @override
-  _InternetPageState createState() => _InternetPageState();
+  _InternetPageUcellState createState() => _InternetPageUcellState();
 }
 
-class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
+class _InternetPageUcellState extends State<InternetPageUcell> with AddMessText,InfoShow{
   ComInter? comIn;
-  List? month=[],day=[],night=[];
+  List? month=[],week=[],day=[],trafikPlus=[],night=[];
   void getInfoInternetPack()async{
     comIn=HiveDB.loadInterInfo();
     print(comIn?.list.first.description);
     comIn?.list.forEach((i){
-      if(i.operator==2&&i.muddat.split(" ").sorted()[0]=="30"){
+      if(i.operator==3&&i.muddat.split(" ").sorted()[0]=="31"&&i.category==21){
         month?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
-      }else if(i.operator==2&&i.muddat.split(" ").sorted()[0]=="1"){
+      }else if(i.operator==3&&i.category==22){
+        week?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
+      }else if(i.operator==3&&i.category==23){
         day?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
+      }else if(i.operator==3&&i.category==25){
+        trafikPlus?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
+      }else if(i.operator==3&&i.category==26){
+        night?.add(InternetPackages(mb:"${i.hajmi}",about: "To`plam narxi::${i.price}\nBerilgan trafik hajmi::${i.hajmi}\nAmal qilish muddati::${i.muddat}",desc:"${i.description}"));
       }
     });
   }
   PageController? controller;
   int currentIndex=0;
   List? lt=[
-    "Oylik paketlar",
-    "Kunlik paketlar",
+    "Oylik to`plamlar",
+    "Haftalik to`plamlar",
+    "Kunlik to`plamlar",
+    "Trafik+",
     "Tungi internet",
-    "TAS-IX uchun paketlar",
-    "Internet non-stop",
-    "TA`LIM tarif rejasi uchun maxsus paketlar",
-    "Constructor TR abanentlari uchun internet paketlar",
   ];
   String t='reading our algorithms. What separates pseudocode from real code is that in pseudocode, we employ whatever expressive method is most clear and concise tospecify a given algorithm. Sometimes, the clearest method is English, so do notbe surprised if you come across an English phrase or sentence embedded withina section of real code. Another difference between pseudocode and real codeis that pseudocode is not typically concerned with issues of software engineering.Issues of data abstraction, modularity, and error handling are often ignored in orderto convey the essence of the algorithm more concisely.';
   String content='Info';
@@ -59,8 +66,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
   @override
   Widget build(BuildContext context){
     final Size size=MediaQuery.of(context).size;
-    final val=Provider.of<InternetProvider>(context);
-    return Consumer<InternetProvider>(
+    return Consumer<InternetProviderUcell>(
       builder: (context,valueInternet,child){
         return Scaffold(
             appBar: AppBar(
@@ -111,74 +117,49 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
                         width: size.width,
                         color: Colors.white,
                         child: ListView.builder(
+                          itemCount:week?.length,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: week![index],color: widget.col),onTap: ()=>showText(context,package: week![index],otherButton: 'Aktivlashtirish' ),),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top:size.width*0.23),
+                        height: size.height,
+                        width: size.width,
+                        color: Colors.white,
+                        child: ListView.builder(
                           itemCount:day?.length,
                           shrinkWrap: true,
                           physics: AlwaysScrollableScrollPhysics(),
                           itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: day![index],color: widget.col),onTap: ()=>showText(context,package: day![index],otherButton: 'Aktivlashtirish' ),),
                         ),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top:size.width*0.23),
-                      //   height: size.height,
-                      //   width: size.width,
-                      //   color: Colors.white,
-                      //   child: ListView.builder(
-                      //     itemCount:other?.length,
-                      //     shrinkWrap: true,
-                      //     physics: AlwaysScrollableScrollPhysics(),
-                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top:size.width*0.23),
-                      //   height: size.height,
-                      //   width: size.width,
-                      //   color: Colors.white,
-                      //   child: ListView.builder(
-                      //     itemCount:other?.length,
-                      //     shrinkWrap: true,
-                      //     physics: AlwaysScrollableScrollPhysics(),
-                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color:widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top:size.width*0.23),
-                      //   height: size.height,
-                      //   width: size.width,
-                      //   color: Colors.white,
-                      //   child: ListView.builder(
-                      //     itemCount:other?.length,
-                      //     shrinkWrap: true,
-                      //     physics: AlwaysScrollableScrollPhysics(),
-                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top:size.width*0.23),
-                      //   height: size.height,
-                      //   width: size.width,
-                      //   color: Colors.white,
-                      //   child: ListView.builder(
-                      //     itemCount:other?.length,
-                      //     shrinkWrap: true,
-                      //     physics: AlwaysScrollableScrollPhysics(),
-                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   margin: EdgeInsets.only(top:size.width*0.23),
-                      //   height: size.height,
-                      //   width: size.width,
-                      //   color: Colors.white,
-                      //   child: ListView.builder(
-                      //     itemCount:other?.length,
-                      //     shrinkWrap: true,
-                      //     physics: AlwaysScrollableScrollPhysics(),
-                      //     itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: other![index],color: widget.col),onTap: ()=>showText(context,package: other![index],otherButton: 'Aktivlashtirish' ),),
-                      //   ),
-                      // ),
+                      Container(
+                        margin: EdgeInsets.only(top:size.width*0.23),
+                        height: size.height,
+                        width: size.width,
+                        color: Colors.white,
+                        child: ListView.builder(
+                          itemCount:trafikPlus?.length,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: trafikPlus![index],color:widget.col),onTap: ()=>showText(context,package: trafikPlus![index],otherButton: 'Aktivlashtirish' ),),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top:size.width*0.23),
+                        height: size.height,
+                        width: size.width,
+                        color: Colors.white,
+                        child: ListView.builder(
+                          itemCount:night?.length,
+                          shrinkWrap: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemBuilder:(context,index)=>GestureDetector(child: myColumnWid(context,package: night![index],color: widget.col),onTap: ()=>showText(context,package: night![index],otherButton: 'Aktivlashtirish' ),),
+                        ),
+                      ),
                     ],
-
                   ),
                   Container(
                     width: size.width,
@@ -212,7 +193,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
                             // ignore: deprecated_member_use
                             child: FlatButton(
                               onPressed: (){},
-                              child: Text('Trafikni Aniqlash',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
+                              child: Text('Internet Trafikni\nTekshirish',textAlign: TextAlign.center,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16),),
                             ),
                           ).center(),
                         ),
@@ -229,7 +210,7 @@ class _InternetPageState extends State<InternetPage> with AddMessText,InfoShow{
   }
 }
 Widget _myWidget(context,{required bool isActive,required String str,required Color color}){
-  return Consumer<InternetProvider>(
+  return Consumer<InternetProviderUcell>(
     builder: (context,value,child)=>Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration:BoxDecoration(
@@ -244,68 +225,6 @@ Widget _myWidget(context,{required bool isActive,required String str,required Co
     ),
   );
 }
-Widget myColumnWid(BuildContext context,{InternetPackages? package,required Color color}){
-  final Size size=MediaQuery.of(context).size;
-  return Container(
-    height: size.width*0.3,
-    width: size.width,
-    child: Row(
-      children: [
-        Expanded(
-          flex: 8,
-          child: Container(
-            padding:EdgeInsets.all(15),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(size.width*0.04),
-                color: Colors.white,
-                border: Border.all(color: Colors.grey,width: 0.1),
-                boxShadow: [
-                  BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
-                ],
-              ),
-              child:Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: color),).center(),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 20,
-          child: Container(
-            padding:EdgeInsets.only(right: 10,top: 10,bottom: 10,left: 5),
-            child: Container(
-              height: double.infinity,
-              padding:EdgeInsets.only(left: 15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(size.width*0.04),
-                color: Colors.white,
-                border: Border.all(color: Colors.grey,width: 0.1),
-                boxShadow: [
-                  BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
-                ],
-              ),
-              child:Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
-                  Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-extension onCenter on Widget{
-  Widget center(){
-    return Center(
-      child: this,
-    );
-  }
-}
-
 mixin InfoShow{
   void showInfo(BuildContext context,[text,content]){
     showDialog(context: context,
@@ -324,12 +243,5 @@ mixin InfoShow{
           ),
         ),
     );
-  }
-}
-
-extension onSort on List{
-  List sorted(){
-    this.sort();
-    return this;
   }
 }

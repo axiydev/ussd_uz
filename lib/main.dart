@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/pages/home_screen/home_screen.dart';
-import 'package:ussd_uz/pages/internet_paketlar/internet_page.dart';
+import 'package:ussd_uz/pages/internet/internet_beeline/internet_page_beeline.dart';
+import 'package:ussd_uz/pages/internet/internet_mobi/internet_mobi.dart';
+import 'package:ussd_uz/pages/internet/internet_paketlar/internet_page.dart';
+import 'package:ussd_uz/pages/internet/internet_perfectum/internet_page_perfetum.dart';
+import 'package:ussd_uz/pages/internet/internet_ucell/internet_ucell.dart';
 import 'package:ussd_uz/pages/language_page/language_screen.dart';
 import 'package:ussd_uz/pages/main_screen/main_screen.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
@@ -27,6 +31,10 @@ class MyApp extends StatelessWidget {
       routes: {
         MainScreen.id:(context)=>MainScreen.screen(),
         InternetPage.id:(context)=>InternetPage.screen(firstPageColor),
+        InternetPageMobi.id:(context)=>InternetPageMobi.screen(secondPageColor),
+        InternetPageUcell.id:(context)=>InternetPageUcell.screen(thirdPageColor),
+        InternetPageBeeline.id:(context)=>InternetPageBeeline.screen(fourthPageColor),
+        InternetPagePerfectum.id:(context)=>InternetPagePerfectum.screen(fivePageColor),
         SecondScreen.id:(context)=>SecondScreen.screen(),
       },
       home: SplashScreen.screen(),

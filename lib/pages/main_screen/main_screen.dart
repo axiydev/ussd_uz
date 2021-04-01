@@ -10,7 +10,11 @@ import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
 import 'package:ussd_uz/pages/fourth_page/fourth_screen.dart';
 import 'package:ussd_uz/pages/home_screen/home_screen.dart';
-import 'package:ussd_uz/pages/internet_paketlar/internet_page.dart';
+import 'package:ussd_uz/pages/internet/internet_beeline/internet_page_beeline.dart';
+import 'package:ussd_uz/pages/internet/internet_mobi/internet_mobi.dart';
+import 'package:ussd_uz/pages/internet/internet_paketlar/internet_page.dart';
+import 'package:ussd_uz/pages/internet/internet_perfectum/internet_page_perfetum.dart';
+import 'package:ussd_uz/pages/internet/internet_ucell/internet_ucell.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
@@ -146,7 +150,19 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                       crossAxisSpacing: size.width*0.08,
                       children: [
                         //#internet paket
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),onTap:()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPage.screen(value.currentColInfo)))),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),onTap:(){
+                          if(value.indexInfo==0){
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPage.screen(firstPageColor)));
+                          }else if(value.indexInfo==1){
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPageMobi.screen(secondPageColor)));
+                          }else if(value.indexInfo==2){
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPageUcell.screen(thirdPageColor)));
+                          }else if(value.indexInfo==3){
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPageBeeline.screen(fourthPageColor)));
+                          }else if(value.indexInfo==4){
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPagePerfectum.screen(fivePageColor)));
+                          }
+                        }),
                         //#ussd kodlar
                         InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),),
                         //#tarif rejalari

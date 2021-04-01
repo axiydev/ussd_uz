@@ -50,7 +50,7 @@ mixin AddMessText{
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: ()=>Navigator.pop(context),
-              child: Text('orqaga',style: TextStyle(color: Colors.redAccent,fontSize: 18),),
+              child: Text('orqaga',style: TextStyle(color: Colors.redAccent,fontSize: 15),),
             ),
           )
         ],
