@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
-import 'package:ussd_uz/models/internet_model.dart';
+import 'package:ussd_uz/models/internet/internet_model.dart';
 
 mixin AddMessText{
-  void showText(BuildContext context,{required InternetPackages package,String? otherButton,}){
+  void showText(BuildContext context,{required InternetPackages package,String? otherButton,bool isUssd=false}){
     showDialog(
       context:context,
       builder:(context)=>SimpleDialog(
@@ -15,13 +15,17 @@ mixin AddMessText{
         title:Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("${package.getStrMb} MB",),
-            IconButton(
-              onPressed: (){
-                Share.share('${package.getStrMb}',subject: "Ulashish");
-              },
-              icon:Icon(Icons.share),
-            )
+            Flexible(
+              child:Text("${package.getStrMb}"),
+            ),
+            Flexible(
+                child:IconButton(
+                 onPressed: (){
+                 Share.share('${package.getStrMb}',subject: "Ulashish");
+                  },
+                icon:Icon(Icons.share),
+            ),
+            ),
           ],
         ),
         children: [

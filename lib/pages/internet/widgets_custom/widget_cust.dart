@@ -1,9 +1,9 @@
 library custom_widget;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ussd_uz/models/internet_model.dart';
+import 'package:ussd_uz/models/internet/internet_model.dart';
 
-Widget myColumnWid(BuildContext context,{InternetPackages? package,required Color color}){
+Widget myColumnWid(BuildContext context,{InternetPackages? package,required Color color,bool isUssd=false}){
   final Size size=MediaQuery.of(context).size;
   return Container(
     height: size.width*0.3,
@@ -23,7 +23,7 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
                   BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
                 ],
               ),
-              child:Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: color),).center(),
+              child:!isUssd?Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,color: color),).center():Text('${package?.mb}',style: TextStyle(fontSize: 13,color: color),).center(),
             ),
           ),
         ),
@@ -42,13 +42,15 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
                   BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
                 ],
               ),
-              child:Column(
+              child:!isUssd?Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
                   Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
                 ],
+              ):Center(
+                child:Text('${package?.about}'),
               ),
             ),
           ),

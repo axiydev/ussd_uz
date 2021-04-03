@@ -5,6 +5,7 @@ static final String BASE_URL="greatcentralasia1.uz";
 
 
 static String API_INTERNET='/api/network';
+static String API_USSD='/api/ussd';
 
 static Map<String,String> headers={
   'Content-type': 'application/json; charset=UTF-8',

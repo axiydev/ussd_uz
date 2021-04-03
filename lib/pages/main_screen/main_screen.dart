@@ -5,7 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
-import 'package:ussd_uz/models/internet_screen_model.dart';
+import 'package:ussd_uz/models/internet/internet_screen_model.dart';
+import 'package:ussd_uz/models/ussd/ussd_common.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
 import 'package:ussd_uz/pages/fourth_page/fourth_screen.dart';
@@ -18,6 +19,7 @@ import 'package:ussd_uz/pages/internet/internet_ucell/internet_ucell.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
+import 'package:ussd_uz/pages/ussd/ussd_screen.dart';
 import 'package:ussd_uz/utils/hiveee/hive_dbb.dart';
 import 'package:ussd_uz/utils/network/network_plus.dart';
 import 'package:ussd_uz/utils/prefs/shared_pref.dart';
@@ -35,20 +37,27 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> with AddMess{
   PageController? controller;
   int currentIndex=0;
-  ComInter? comInter;
   @override
   void initState(){
     super.initState();
     controller=PageController();
     getT();
+    getUssd();
   }
   void getT()async{
     NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response) async {
       ComInter obj=new ComInter.fromJson(jsonDecode(response!));
       await HiveDB.storeInterInfo(obj);
-      comInter=obj;
       print(obj.list.first.description);
     }).catchError((err)=>print("ERRRRRR:$err"));
+  }
+
+  void getUssd()async{
+    NetworkD.GET(NetworkD.API_USSD,NetworkD.paramsEmpty()).then((response) async {
+      USSD_COMMON ussd=new USSD_COMMON.fromJson(jsonDecode(response!));
+      await HiveDB.storeUssdInfo(ussd);
+      print(ussd.list.first.name);
+    }).catchError((err)=>print('ERRRRR:::USSD::$err'));
   }
   @override
   Widget build(BuildContext context) {
@@ -164,7 +173,9 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                           }
                         }),
                         //#ussd kodlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder:(context)=>UssdPage.screen(value.currentColInfo,value.indexInfo)));
+                        }),
                         //#tarif rejalari
                         InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text: 'Tarif rejalari'),),
                         //#xizmatlar

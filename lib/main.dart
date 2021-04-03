@@ -11,6 +11,7 @@ import 'package:ussd_uz/pages/language_page/language_screen.dart';
 import 'package:ussd_uz/pages/main_screen/main_screen.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/splash_screen/splash_screen.dart';
+import 'package:ussd_uz/pages/ussd/ussd_screen.dart';
 import 'package:ussd_uz/theme.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         InternetPageBeeline.id:(context)=>InternetPageBeeline.screen(fourthPageColor),
         InternetPagePerfectum.id:(context)=>InternetPagePerfectum.screen(fivePageColor),
         SecondScreen.id:(context)=>SecondScreen.screen(),
+        UssdPage.id:(context)=>UssdPage.screen(firstPageColor,0),
       },
       home: SplashScreen.screen(),
       debugShowCheckedModeBanner: false,

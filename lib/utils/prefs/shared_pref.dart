@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ussd_uz/models/internet_screen_model.dart';
+import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 
 class Prefs{
 

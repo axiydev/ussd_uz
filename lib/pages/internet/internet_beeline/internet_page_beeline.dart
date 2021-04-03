@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:ussd_uz/constants/constant.dart';
-import 'package:ussd_uz/models/internet_model.dart';
-import 'package:ussd_uz/models/internet_screen_model.dart';
+import 'package:ussd_uz/models/internet/internet_model.dart';
+import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/pages/home_screen/home_provider.dart';
 import 'package:ussd_uz/pages/internet/internet_mobi/internet_mobi.dart';
 import 'package:ussd_uz/pages/internet/internet_paketlar/internet_page.dart';
@@ -50,7 +50,7 @@ class _InternetPageBeelineState extends State<InternetPageBeeline> with AddMessT
     "Haftalik internet paketlar",
     "Kunlik internet paketlar",
   ];
-  String t='reading our algorithms. What separates pseudocode from real code is that in pseudocode, we employ whatever expressive method is most clear and concise tospecify a given algorithm. Sometimes, the clearest method is English, so do notbe surprised if you come across an English phrase or sentence embedded withina section of real code. Another difference between pseudocode and real codeis that pseudocode is not typically concerned with issues of software engineering.Issues of data abstraction, modularity, and error handling are often ignored in orderto convey the essence of the algorithm more concisely.';
+  String t='Beeline kompaniyasi internet paketlari';
   String content='Info';
   @override
  void initState(){
