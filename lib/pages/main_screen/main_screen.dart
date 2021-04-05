@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
+import 'package:ussd_uz/models/service/service_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
@@ -20,6 +21,7 @@ import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
 import 'package:ussd_uz/pages/ussd/ussd_screen.dart';
+import 'package:ussd_uz/pages/xizmatlar/xizmatlar_first/xizmatlar_page.dart';
 import 'package:ussd_uz/utils/hiveee/hive_dbb.dart';
 import 'package:ussd_uz/utils/network/network_plus.dart';
 import 'package:ussd_uz/utils/prefs/shared_pref.dart';
@@ -43,6 +45,8 @@ class _MainScreenState extends State<MainScreen> with AddMess{
     controller=PageController();
     getT();
     getUssd();
+    getService();
+    getServiceCategory();
   }
   void getT()async{
     NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response) async {
@@ -58,6 +62,21 @@ class _MainScreenState extends State<MainScreen> with AddMess{
       await HiveDB.storeUssdInfo(ussd);
       print(ussd.list.first.name);
     }).catchError((err)=>print('ERRRRR:::USSD::$err'));
+  }
+
+  void getService()async{
+    NetworkD.GET(NetworkD.API_SERVICE,NetworkD.paramsEmpty()).then((response)async{
+     ServiceMod service=new ServiceMod.fromJson(jsonDecode(response!));
+     await HiveDB.storeServiceInfo(service);
+     print(service.list.first.name);
+    }).then((err)=>print("ERRORSERVICE::${err}"));
+  }
+  void getServiceCategory()async{
+    NetworkD.GET(NetworkD.API_SERVICE_CATEGORY,NetworkD.paramsEmpty()).then((response)async{
+     ServiceModCategory serviceCategory=new ServiceModCategory.fromJson(jsonDecode(response!));
+     await HiveDB.storeServiceCategoryInfo(serviceCategory);
+     print(serviceCategory.list.first.name);
+    }).then((err)=>print("ERRORSERVICECATEGORY::${err}"));
   }
   @override
   Widget build(BuildContext context) {
@@ -159,7 +178,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                       crossAxisSpacing: size.width*0.08,
                       children: [
                         //#internet paket
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:'Internet paketlar'),onTap:(){
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:value.internetTextMain),onTap:(){
                           if(value.indexInfo==0){
                             Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPage.screen(firstPageColor)));
                           }else if(value.indexInfo==1){
@@ -173,17 +192,17 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                           }
                         }),
                         //#ussd kodlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text: 'USSD kodlar'),onTap: (){
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text:value.ussdKodlarMain),onTap: (){
                           Navigator.of(context).push(MaterialPageRoute(builder:(context)=>UssdPage.screen(value.currentColInfo,value.indexInfo)));
                         }),
                         //#tarif rejalari
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text: 'Tarif rejalari'),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text:value.tarifRejalariMain),),
                         //#xizmatlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:'Xizmatlar'),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:value.xizmatlarMain),onTap:()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>XizmatlarPage.screen(value.currentColInfo,value.indexInfo)))),
                         //#daqiqa toplamlari
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:'Daqiqa to`plamlari'),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:value.daqiqaToplamlarMain),),
                         //#sms to`plamlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text: "SMS to`plamlar"),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text:value.smsToplamlarMain),),
                       ],
                     ),
                   ),

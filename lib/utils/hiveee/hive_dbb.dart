@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
+import 'package:ussd_uz/models/service/service_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
 
 class HiveDB{
   static var box=Hive.box('hive_db');
+
   //#internet uchun
   static storeInterInfo(ComInter objInt)async{
     await box.put('networkInfo',objInt.toJson());
@@ -30,5 +32,33 @@ class HiveDB{
 
   static removeUssdInfo()async{
     await box.delete('ussd');
+  }
+
+//#service
+  static storeServiceInfo(ServiceMod objSer)async{
+    await box.put('service',objSer.toJson());
+  }
+
+  static ServiceMod loadServiceInfo(){
+    var mp=box.get('service');
+    return ServiceMod.fromJson(mp);
+  }
+
+  static removeServiceInfo()async{
+    await box.delete('service');
+  }
+
+//#serviceCategory
+  static storeServiceCategoryInfo(ServiceModCategory objSer)async{
+    await box.put('serviceCategory',objSer.toJson());
+  }
+
+  static ServiceModCategory loadServiceCategoryInfo(){
+    var mp=box.get('serviceCategory');
+    return ServiceModCategory.fromJson(mp);
+  }
+
+  static removeServiceCategoryInfo()async{
+    await box.delete('serviceCategory');
   }
 }

@@ -24,3 +24,11 @@ final String secondPageMotiv="Raqamli Imkoniyatlar sari";
 final String thirdPageMotiv="Hayotni yaxshilik sar o`zgartirib";
 final String fourPageMotiv="Yetakchi.Ishonchli.Innovatsion";
 final String fivePageMotiv="Perfectum!Bugun!Abadiy!";
+
+//#menu names
+final String  internetText="Internet paketlar";
+final String  ussdKodlar="Ussd Kodlar";
+final String  tarifRejalari="Tarif rejalari";
+final String  xizmatlar="Xizmatlar";
+final String  daqiqaToplamalr="Daqiqa To`plamlar";
+final String  smsToplamlar="SMS to`plamalar";

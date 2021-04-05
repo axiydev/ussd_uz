@@ -67,7 +67,7 @@ class _UssdPageState extends State<UssdPage> with AddMessText{
       builder: (context,value,child)=>Scaffold(
           appBar: AppBar(
             centerTitle: false,
-            title:Text('USSD Kodlar ${widget.indexPage}'),
+            title:Text('USSD Kodlar'),
             elevation: 0.0,
             bottomOpacity: 0.0,
             backgroundColor: widget.col,
@@ -81,7 +81,7 @@ class _UssdPageState extends State<UssdPage> with AddMessText{
                     child:ListView.builder(
                         itemCount: lt!.length,
                         itemBuilder:(context,index)=>Dismissible(
-                          background:Center(child: Icon(Icons.highlight_remove_outlined),),
+                          background:Center(child: Text("Axi",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),
                           key:ValueKey("in::$index _${lt![index].mb}"),
                           onDismissed: (direction){
                           value.removeInd(lt,index);
