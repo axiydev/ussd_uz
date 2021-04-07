@@ -7,6 +7,7 @@ import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
+import 'package:ussd_uz/models/sms/sms_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
@@ -19,6 +20,7 @@ import 'package:ussd_uz/pages/internet/internet_perfectum/internet_page_perfetum
 import 'package:ussd_uz/pages/internet/internet_ucell/internet_ucell.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
+import 'package:ussd_uz/pages/sms_toplamlar/sms_page.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
 import 'package:ussd_uz/pages/ussd/ussd_screen.dart';
 import 'package:ussd_uz/pages/xizmatlar/xizmatlar_first/xizmatlar_page.dart';
@@ -47,6 +49,8 @@ class _MainScreenState extends State<MainScreen> with AddMess{
     getUssd();
     getService();
     getServiceCategory();
+    getSms();
+    getSmsCategory();
   }
   void getT()async{
     NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response) async {
@@ -69,14 +73,29 @@ class _MainScreenState extends State<MainScreen> with AddMess{
      ServiceMod service=new ServiceMod.fromJson(jsonDecode(response!));
      await HiveDB.storeServiceInfo(service);
      print(service.list.first.name);
-    }).then((err)=>print("ERRORSERVICE::${err}"));
+    }).catchError((err)=>print("ERRORSERVICE::${err}"));
   }
   void getServiceCategory()async{
     NetworkD.GET(NetworkD.API_SERVICE_CATEGORY,NetworkD.paramsEmpty()).then((response)async{
      ServiceModCategory serviceCategory=new ServiceModCategory.fromJson(jsonDecode(response!));
      await HiveDB.storeServiceCategoryInfo(serviceCategory);
      print(serviceCategory.list.first.name);
-    }).then((err)=>print("ERRORSERVICECATEGORY::${err}"));
+    }).catchError((err)=>print("ERRORSERVICECATEGORY::${err}"));
+  }
+
+  void getSms()async{
+    NetworkD.GET(NetworkD.API_SMS,NetworkD.paramsEmpty()).then((response)async{
+      SmsMod sms=new SmsMod.fromJson(jsonDecode(response!));
+      await HiveDB.storeSmsInfo(sms);
+      print(sms.list.first.nameRu);
+    }).catchError((err)=>print(err));
+  }
+  void getSmsCategory()async{
+    NetworkD.GET(NetworkD.API_SMS_CATEGORY,NetworkD.paramsEmpty()).then((response)async{
+      SmsModCategory smsCategory=new SmsModCategory.fromJson(jsonDecode(response!));
+      await HiveDB.storeSmsCategoryInfo(smsCategory);
+      print(smsCategory.list.first.nameRu);
+    }).catchError((err)=>print(err));
   }
   @override
   Widget build(BuildContext context) {
@@ -202,7 +221,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                         //#daqiqa toplamlari
                         InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:value.daqiqaToplamlarMain),),
                         //#sms to`plamlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text:value.smsToplamlarMain),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text:value.smsToplamlarMain),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SmsPage.screen(value.currentColInfo,value.indexInfo))),),
                       ],
                     ),
                   ),

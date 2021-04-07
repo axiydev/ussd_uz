@@ -10,6 +10,8 @@ static String API_USSD='/api/ussd';
 static String API_SERVICE='/api/service';
 static String API_SERVICE_CATEGORY='/api/serviceCategory';
 
+static String API_SMS='/api/sms';
+static String API_SMS_CATEGORY='/api/smsCategory';
 static Map<String,String> headers={
   'Content-type': 'application/json; charset=UTF-8',
 };

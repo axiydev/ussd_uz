@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
+import 'package:ussd_uz/models/sms/sms_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
 
 class HiveDB{
@@ -60,5 +61,33 @@ class HiveDB{
 
   static removeServiceCategoryInfo()async{
     await box.delete('serviceCategory');
+  }
+
+//#sms
+  static storeSmsInfo(SmsMod objSms)async{
+    await box.put('sms',objSms.toJson());
+  }
+
+  static SmsMod loadSmsInfo(){
+    var mp=box.get('sms');
+    return SmsMod.fromJson(mp);
+  }
+
+  static removeSmsInfo()async{
+    await box.delete('sms');
+  }
+
+//#smsCategory
+  static storeSmsCategoryInfo(SmsModCategory objSmsCategory)async{
+    await box.put('smsCategory',objSmsCategory.toJson());
+  }
+
+  static SmsModCategory loadSmsCategoryInfo(){
+    var mp=box.get('smsCategory');
+    return SmsModCategory.fromJson(mp);
+  }
+
+  static removeSmsCategoryInfo()async{
+    await box.delete('smsCategory');
   }
 }
