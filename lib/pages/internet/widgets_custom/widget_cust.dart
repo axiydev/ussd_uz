@@ -159,11 +159,11 @@ Widget myColumnWidTarif(BuildContext context,{InternetPackages? package,required
               child: Container(
                 height: double.infinity,
                 child:Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
-                    Divider(thickness: 2,endIndent:size.width*0.2,),
+                    Divider(thickness: 2,endIndent:size.width*0.1,indent: size.width*0.05,),
                     Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
                   ],
                 )
@@ -182,7 +182,6 @@ extension onCenter on Widget{
     );
   }
 }
-
 extension onSort on List{
   List sorted(){
     this.sort();

@@ -10,25 +10,27 @@ import 'package:ussd_uz/pages/home_screen/home_provider.dart';
 import 'package:ussd_uz/pages/internet/internet_paketlar/internet_provider.dart';
 import 'package:ussd_uz/pages/internet/widgets_custom/widget_cust.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
+import 'package:ussd_uz/pages/tarif_rejalari/about_tarif/about_tarif.dart';
+import 'package:ussd_uz/pages/tarif_rejalari/tarif_provider.dart';
 import 'package:ussd_uz/pages/xizmatlar/xizmatlar_first/xizmatlar_provider.dart';
 import 'package:ussd_uz/utils/hiveee/hive_dbb.dart';
 import 'package:ussd_uz/utils/mixinss.dart';
 import 'package:ussd_uz/utils/prefs/shared_pref.dart';
 // ignore: must_be_immutable
-class XizmatlarPage extends StatefulWidget {
-  static const String id="xizmatlar_page";
+class TarifPage extends StatefulWidget {
+  static const String id="tarif_page";
   late Color col;
   late int ind;
-  XizmatlarPage({required this.col,required this.ind});
-  static Widget screen(Color col,int index)=>ChangeNotifierProvider<XizmatlarProvider>(
-    create:(context)=>XizmatlarProvider(),
-    child: XizmatlarPage(col: col,ind:index),
+  TarifPage({required this.col,required this.ind});
+  static Widget screen(Color col,int index)=>ChangeNotifierProvider<TarifProvider>(
+    create:(context)=>TarifProvider(),
+    child: TarifPage(col: col,ind:index),
   );
   @override
-  _XizmatlarPageState createState() => _XizmatlarPageState();
+  _TarifPageState createState() => _TarifPageState();
 }
 //#tayyot
-class _XizmatlarPageState extends State<XizmatlarPage> with AddMessText,InfoShow{
+class _TarifPageState extends State<TarifPage> with AddMessText,InfoShow{
   ServiceMod? serviceMod;
   ServiceModCategory? serviceModCategory;
   List? lt=[];
@@ -178,7 +180,7 @@ class _XizmatlarPageState extends State<XizmatlarPage> with AddMessText,InfoShow
   @override
   Widget build(BuildContext context){
     final Size size=MediaQuery.of(context).size;
-    return Consumer<XizmatlarProvider>(
+    return Consumer<TarifProvider>(
       builder: (context,valueService,child){
         return Scaffold(
           appBar: AppBar(
@@ -199,7 +201,7 @@ class _XizmatlarPageState extends State<XizmatlarPage> with AddMessText,InfoShow
                 splashColor: Colors.red,
               ),
             ],
-            title:Text('Xizmatlar'),
+            title:Text('Tariflar'),
           ),
           body:SafeArea(
             child: Stack(
@@ -220,7 +222,7 @@ class _XizmatlarPageState extends State<XizmatlarPage> with AddMessText,InfoShow
                        itemCount:listInfo![i]?.length,
                        shrinkWrap: true,
                        physics: AlwaysScrollableScrollPhysics(),
-                       itemBuilder:(context,index)=>GestureDetector(child: myColumnWidService(context,package: listInfo![i][index],color: widget.col),onTap: ()=>showTextService(context,package: listInfo![i][index],otherButton: 'Aktivlashtirish' ),),
+                       itemBuilder:(context,index)=>Hero(tag:"${listInfo![i][index].about}",child: GestureDetector(child: myColumnWidTarif(context,package: listInfo![i][index],color: widget.col),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>AboutTarifPage.screen(widget.col,listInfo![i][index].about,listInfo![i][index]))),),)
                      ),
                    ),
                   ],
@@ -254,7 +256,7 @@ class _XizmatlarPageState extends State<XizmatlarPage> with AddMessText,InfoShow
   }
 }
 Widget _myWidget(context,{required bool isActive,required String str,required Color color}){
-  return Consumer<XizmatlarProvider>(
+  return Consumer<TarifProvider>(
     builder: (context,value,child)=>Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration:BoxDecoration(

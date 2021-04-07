@@ -14,6 +14,8 @@ import 'package:ussd_uz/pages/main_screen/main_screen.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/sms_toplamlar/sms_page.dart';
 import 'package:ussd_uz/pages/splash_screen/splash_screen.dart';
+import 'package:ussd_uz/pages/tarif_rejalari/about_tarif/about_tarif.dart';
+import 'package:ussd_uz/pages/tarif_rejalari/tarif_page.dart';
 import 'package:ussd_uz/pages/ussd/ussd_screen.dart';
 import 'package:ussd_uz/pages/xizmatlar/xizmatlar_first/xizmatlar_page.dart';
 import 'package:ussd_uz/theme.dart';
@@ -44,8 +46,10 @@ class MyApp extends StatelessWidget {
         XizmatlarPage.id:(context)=>XizmatlarPage.screen(firstPageColor,0),
         UssdPage.id:(context)=>UssdPage.screen(firstPageColor,0),
         SmsPage.id:(context)=>SmsPage.screen(firstPageColor,0),
+        TarifPage.id:(context)=>TarifPage.screen(firstPageColor,0),
+        AboutTarifPage.id:(context)=>AboutTarifPage.screen(firstPageColor,'assets/icons/splash.jpg',InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),)
       },
-      home: ExamplePage(),
+      home:SplashScreen.screen(),
       debugShowCheckedModeBanner: false,
     );
   }

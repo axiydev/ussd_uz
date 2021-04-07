@@ -21,6 +21,7 @@ import 'package:ussd_uz/pages/internet/internet_ucell/internet_ucell.dart';
 import 'package:ussd_uz/pages/main_screen/main_provider.dart';
 import 'package:ussd_uz/pages/second_screen/second_screen.dart';
 import 'package:ussd_uz/pages/sms_toplamlar/sms_page.dart';
+import 'package:ussd_uz/pages/tarif_rejalari/tarif_page.dart';
 import 'package:ussd_uz/pages/third_screen/third_screen.dart';
 import 'package:ussd_uz/pages/ussd/ussd_screen.dart';
 import 'package:ussd_uz/pages/xizmatlar/xizmatlar_first/xizmatlar_page.dart';
@@ -215,7 +216,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                           Navigator.of(context).push(MaterialPageRoute(builder:(context)=>UssdPage.screen(value.currentColInfo,value.indexInfo)));
                         }),
                         //#tarif rejalari
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text:value.tarifRejalariMain),),
+                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text:value.tarifRejalariMain),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TarifPage.screen(value.currentColInfo,value.indexInfo))),),
                         //#xizmatlar
                         InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:value.xizmatlarMain),onTap:()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>XizmatlarPage.screen(value.currentColInfo,value.indexInfo)))),
                         //#daqiqa toplamlari
