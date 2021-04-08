@@ -46,6 +46,7 @@ class _AboutTarifPageState extends State<AboutTarifPage> {
               ),
             ],
           ),
+
           body:SafeArea(
             child:Container(
               width: size.width,
