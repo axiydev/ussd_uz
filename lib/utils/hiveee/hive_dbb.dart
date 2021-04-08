@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
 import 'package:ussd_uz/models/sms/sms_model.dart';
+import 'package:ussd_uz/models/tarif/tarif_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
 
 class HiveDB{
@@ -90,4 +91,19 @@ class HiveDB{
   static removeSmsCategoryInfo()async{
     await box.delete('smsCategory');
   }
+
+  //#tarif
+  static storeTarifInfo(TarifMod objTar)async{
+    await box.put('tarif',objTar.toJson());
+  }
+
+  static TarifMod loadTarifInfo(){
+    var mp=box.get('tarif');
+    return TarifMod.fromJson(mp);
+  }
+
+  static removeTarifInfo()async{
+    await box.delete('tarif');
+  }
+
 }

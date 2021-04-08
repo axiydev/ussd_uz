@@ -8,6 +8,7 @@ import 'package:ussd_uz/constants/constant.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
 import 'package:ussd_uz/models/sms/sms_model.dart';
+import 'package:ussd_uz/models/tarif/tarif_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
@@ -52,6 +53,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
     getServiceCategory();
     getSms();
     getSmsCategory();
+    getTarif();
   }
   void getT()async{
     NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response) async {
@@ -97,6 +99,13 @@ class _MainScreenState extends State<MainScreen> with AddMess{
       await HiveDB.storeSmsCategoryInfo(smsCategory);
       print(smsCategory.list.first.nameRu);
     }).catchError((err)=>print(err));
+  }
+  void getTarif()async{
+    NetworkD.GET(NetworkD.API_TARIF_REJALARI,NetworkD.paramsEmpty()).then((response)async{
+      TarifMod tarif=new TarifMod.fromJson(jsonDecode(response!));
+      await HiveDB.storeTarifInfo(tarif);
+      print(tarif.list.first.image);
+    }).catchError((err)=>print("TARIF_ERROR:::${err}"));
   }
   @override
   Widget build(BuildContext context) {
@@ -252,7 +261,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
               ),
             ),
             Positioned(
-              top: size.width/3.7,
+              top: size.width/4.4,
               child:Container(
                 width:size.width,
                 child: Row(
@@ -403,26 +412,32 @@ class MainClipper extends CustomClipper<Path>{
 
 Widget _myCardWidgets(BuildContext context,{required Size size,required icon,required String text})=>Card(
   child: Consumer<MainProvider>(
-    builder: (context,value,child)=>Container(
-        height:size.width*0.4,
-        width: size.width*0.4,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(size.width*0.04),
-          color: Colors.white,
-          border: Border.all(color: Colors.grey,width: 0.1),
-          boxShadow: [
-            BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
-          ],
-        ),
-        child:Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            FaIcon(icon,color: value.currentColInfo,size:size.width*0.1,),
-            SizedBox(height:size.width*0.04,),
-            Text(text,textAlign:TextAlign.center,style:TextStyle(color: value.currentColInfo,fontSize:size.width*0.035,fontWeight: FontWeight.w600)),
-          ],
-        )
+    builder: (context,value,child)=>Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(size.width*0.04),
+      ),
+      elevation: 0.0,
+      child: Container(
+          height:size.width*0.4,
+          width: size.width*0.4,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(size.width*0.04),
+            color: Colors.white,
+            border: Border.all(color: Colors.grey,width: 0.1),
+            boxShadow: [
+              BoxShadow(offset: Offset(0,3),blurRadius: 3,color: Colors.grey),
+            ],
+          ),
+          child:Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FaIcon(icon,color: value.currentColInfo,size:size.width*0.1,),
+              SizedBox(height:size.width*0.04,),
+              Text(text,textAlign:TextAlign.center,style:TextStyle(color: value.currentColInfo,fontSize:size.width*0.035,fontWeight: FontWeight.w600)),
+            ],
+          )
+      ),
     ),
   ),
 );

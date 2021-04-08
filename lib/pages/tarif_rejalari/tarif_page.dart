@@ -6,6 +6,7 @@ import 'package:ussd_uz/models/internet/InfoModel.dart';
 import 'package:ussd_uz/models/internet/internet_model.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
+import 'package:ussd_uz/models/tarif/tarif_model.dart';
 import 'package:ussd_uz/pages/home_screen/home_provider.dart';
 import 'package:ussd_uz/pages/internet/internet_paketlar/internet_provider.dart';
 import 'package:ussd_uz/pages/internet/widgets_custom/widget_cust.dart';
@@ -31,140 +32,97 @@ class TarifPage extends StatefulWidget {
 }
 //#tayyot
 class _TarifPageState extends State<TarifPage> with AddMessText,InfoShow{
-  ServiceMod? serviceMod;
-  ServiceModCategory? serviceModCategory;
+  TarifMod? tarifMod;
   List? lt=[];
   List? listInfo=[],
       listEmp1=[],
       listEmp2=[],
       listEmp3=[],
       listEmp4=[],
-      listEmp5=[],
-      listEmp6=[],
-      listEmp7=[],
-      listEmp8=[],
-      listEmp9=[],
-      listEmp10=[],
-      listEmp11=[],
-      listEmp12=[];
+      listEmp5=[];
   void getInfoServicePack()async{
-   serviceMod=HiveDB.loadServiceInfo();
-   serviceModCategory=HiveDB.loadServiceCategoryInfo();
+   tarifMod=HiveDB.loadTarifInfo();
    if(widget.ind==0) {
-     serviceModCategory?.list.forEach((item) {
-       if(item.operator==2){
-         lt?.add(InfoModel(name: item.name,info: item.info));
-       }
-     });
-     serviceMod?.list.forEach((i) {
-           if(i.operator==2&&i.category==6) {
+     lt?.addAll([
+       InfoModel(name:"Faol tariflar", info:"Faol tariflar,"),
+     ]);
+     tarifMod?.list.forEach((i) {
+           if(i.operator==2) {
              listEmp1?.add(
-                 InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-           }else if(i.operator==2&&i.category==13) {
-             listEmp2?.add(
-                 InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-           }else if(i.operator==2&&i.category==14){
-             listEmp3?.add(
-                 InternetPackages(mb:"${i.ussdCode}",about: "${i.name}",desc: '${i.description}'));
+                 InternetPackages.redir(
+                     mb:"${i.name}",
+                     about: "${i.ussdCode}",
+                     desc: '${i.description}',
+                     img:'${i.image}'
+                 ));
            }
    });
          listInfo?.add(listEmp1);
-         listInfo?.add(listEmp2);
-         listInfo?.add(listEmp3);
-  }else if(widget.ind==1){
-     serviceModCategory?.list.forEach((item) {
-       if(item.operator==1){
-         lt?.add(InfoModel(name: item.name,info: item.info));
+   } else if(widget.ind==1){
+     lt?.addAll([
+       InfoModel(name:"Faol tariflar", info:"Faol tariflar,"),
+     ]);
+     tarifMod?.list.forEach((i) {
+       if(i.operator==1) {
+         listEmp2?.add(
+             InternetPackages.redir(
+                 mb:"${i.name}",
+                 about: "${i.ussdCode}",
+                 desc: '${i.description}',
+                 img:'${i.image}'
+  ));
        }
      });
-     serviceMod?.list.forEach((i) {
-       if(i.operator==1&&i.category==3) {
+     listInfo?.add(listEmp2);
+   }
+  else if(widget.ind==2){
+     lt?.addAll([
+       InfoModel(name:"Faol tariflar", info:"Faol tariflar,"),
+     ]);
+     tarifMod?.list.forEach((i) {
+       if(i.operator==3) {
+         listEmp3?.add(
+             InternetPackages.redir(
+                 mb:"${i.name}",
+                 about: "${i.ussdCode}",
+                 desc: '${i.description}',
+                 img:'${i.image}'
+             ));
+       }
+     listInfo?.add(listEmp3);
+     });
+  }else if(widget.ind==3){
+     lt?.addAll([
+       InfoModel(name:"Faol tariflar", info:"Faol tariflar,"),
+     ]);
+     tarifMod?.list.forEach((i) {
+       if(i.operator==4) {
          listEmp4?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }else if(i.operator==1&&i.category==4) {
-         listEmp5?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }
-     });
+             InternetPackages.redir(
+                 mb:"${i.name}",
+                 about: "${i.ussdCode}",
+                 desc: '${i.description}',
+                 img:'${i.image}'
+             ));
+       }});
      listInfo?.add(listEmp4);
-     listInfo?.add(listEmp5);
-   }else if(widget.ind==2){
-     serviceModCategory?.list.forEach((item) {
-       if(item.operator==3){
-         lt?.add(InfoModel(name: item.name,info: item.info));
-       }
-     });
-     serviceMod?.list.forEach((i) {
-       if(i.operator==3&&i.category==10) {
-         listEmp6?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }else if(i.operator==3&&i.category==11) {
-         listEmp7?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }else if(i.operator==3&&i.category==12) {
-         listEmp8?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }
-     });
-     listInfo?.add(listEmp6);
-     listInfo?.add(listEmp7);
-     listInfo?.add(listEmp8);
-   }else if(widget.ind==3){
-     serviceModCategory?.list.forEach((item) {
-       if(item.operator==4){
-         lt?.add(InfoModel(name: item.name,info: item.info));
-       }
-     });
-     serviceMod?.list.forEach((i) {
-       if(i.operator==4&&i.category==7) {
-         listEmp9?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }else if(i.operator==4&&i.category==8) {
-         listEmp10?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }else if(i.operator==4&&i.category==9) {
-         listEmp11?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }
-     });
-     listInfo?.add(listEmp9);
-     listInfo?.add(listEmp10);
-     listInfo?.add(listEmp11);
+
    }else if(widget.ind==4){
-     serviceModCategory?.list.forEach((item) {
-       if(item.operator==5){
-         lt?.add(InfoModel(name: item.name,info: item.info));
+     lt?.addAll([
+       InfoModel(name:"Faol tariflar", info:"Faol tariflar,"),
+     ]);
+     tarifMod?.list.forEach((i) {
+       if(i.operator==5) {
+         listEmp5?.add(
+             InternetPackages.redir(
+                 mb:"${i.name}",
+                 about: "${i.ussdCode}",
+                 desc: '${i.description}',
+                 img:'${i.image}'
+             ));
        }
      });
-     serviceMod?.list.forEach((i) {
-       if(i.operator==5&&i.category==5) {
-         listEmp12?.add(
-             InternetPackages(mb: "${i.ussdCode}",
-                 about: "${i.name}",
-                 desc: '${i.description}'));
-       }
-     });
-     listInfo?.add(listEmp12);
+     listInfo?.add(listEmp5);
    }
   }
   PageController? controller;
@@ -222,7 +180,8 @@ class _TarifPageState extends State<TarifPage> with AddMessText,InfoShow{
                        itemCount:listInfo![i]?.length,
                        shrinkWrap: true,
                        physics: AlwaysScrollableScrollPhysics(),
-                       itemBuilder:(context,index)=>Hero(tag:"${listInfo![i][index].about}",child: GestureDetector(child: myColumnWidTarif(context,package: listInfo![i][index],color: widget.col),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>AboutTarifPage.screen(widget.col,listInfo![i][index].about,listInfo![i][index]))),),)
+                       itemBuilder:(context,index)=>Hero(tag:"${listInfo![i][index].mb}}",child: GestureDetector(child: myColumnWidTarif(context,package: listInfo![i][index],color: widget.col),
+                         onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>AboutTarifPage.screen(widget.col,listInfo![i][index].img,listInfo![i][index]))),),)
                      ),
                    ),
                   ],

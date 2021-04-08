@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body:Stack(
           children: [
             Positioned(
-              top: size.width*0.1,
+              top: size.width*0.05,
               child: Container(
                 height:size.width*0.08,
                 width: size.width,
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: size.width*0.2,
+              top: size.width*0.14,
               child:Container(
                 alignment: Alignment.center,
                 height: size.width*0.05,

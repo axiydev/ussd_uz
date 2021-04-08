@@ -23,7 +23,7 @@ class _SecondScreenState extends State<SecondScreen> {
         body:Stack(
           children: [
             Positioned(
-              top: size.width*0.1,
+              top: size.width*0.05,
               child: Container(
                 height:size.width*0.08,
                 width: size.width,
@@ -35,7 +35,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
             ),
             Positioned(
-              top: size.width*0.2,
+              top: size.width*0.14,
               child:Container(
                 alignment: Alignment.center,
                 height: size.width*0.05,

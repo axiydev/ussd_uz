@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ussd_uz/models/internet/internet_model.dart';
 import 'dart:ui';
+
+import 'package:ussd_uz/utils/network/network_plus.dart';
 Widget myColumnWid(BuildContext context,{InternetPackages? package,required Color color,bool isUssd=false}){
   final Size size=MediaQuery.of(context).size;
   return Container(
@@ -46,8 +48,8 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
-                  Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
+                  Flexible(child:Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),),
+                  Flexible(child:Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),)
                 ],
               ):Center(
                 child:Text('${package?.about}'),
@@ -102,8 +104,8 @@ Widget myColumnWidService(BuildContext context,{InternetPackages? package,requir
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),
-                  Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),
+                  Flexible(child: Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),),
+                  Flexible(child:Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),),
                 ],
               ):Center(
                 child:Text('${package?.about}'),
@@ -137,6 +139,8 @@ Widget myColumnWidTarif(BuildContext context,{InternetPackages? package,required
             child: Container(
               padding:EdgeInsets.only(left: 10,right: 10,top:20,bottom: 20),
               child: Container(
+                height: size.width*0.23,
+                width: size.width*0.4,
                 padding: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.horizontal(left: Radius.circular(15),right:Radius.circular(15)),
@@ -145,9 +149,9 @@ Widget myColumnWidTarif(BuildContext context,{InternetPackages? package,required
                 child:ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child:FadeInImage(
-                    image: AssetImage('assets/icons/bg_sign.jpg'),
-                    fit:BoxFit.cover,
-                    placeholder:AssetImage('assets/icons/splash.jpg'),
+                    image: NetworkImage('http://greatcentralasia1.uz/${package?.img}'),
+                    fit: BoxFit.cover,
+                    placeholder: AssetImage('assets/icons/splash.jpg'),
                   )
                 ),
               ),

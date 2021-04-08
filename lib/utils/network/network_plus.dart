@@ -12,6 +12,8 @@ static String API_SERVICE_CATEGORY='/api/serviceCategory';
 
 static String API_SMS='/api/sms';
 static String API_SMS_CATEGORY='/api/smsCategory';
+static String API_TARIF_REJALARI='/api/tarif';
+
 static Map<String,String> headers={
   'Content-type': 'application/json; charset=UTF-8',
 };

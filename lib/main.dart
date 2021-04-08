@@ -55,49 +55,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class ExamplePage extends StatefulWidget {
-  @override
-  _ExamplePageState createState() => _ExamplePageState();
-}
-
-class _ExamplePageState extends State<ExamplePage> {
-  List? ltX=[
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-    InternetPackages(mb:"500",about: "asjdkhsfhkdhdsf",desc: "jdlkshkjfjsgkfjhgsdhfdkhf"),
-  ];
-  @override
-  Widget build(BuildContext context) {
-    final Size size=MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width:size.width,
-          child:ListView.builder(
-            itemCount: ltX?.length,
-            itemBuilder:(context,index)=>myColumnWidTarif(context,color:Colors.blue,package: ltX![index]),
-          ),
-        ),
-      ),
-    );
-  }
-}
 
