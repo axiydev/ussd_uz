@@ -20,10 +20,10 @@ class _FourthScreenState extends State<FourthScreen> {
     return Consumer2<MainProvider,FourthProvider>(
       builder: (context,valueMain,valueFourth,child)=>Scaffold(
         backgroundColor:valueMain.currentColInfo,
-        body:Stack(
+        body:LayoutBuilder(builder:(context,constrains)=>Stack(
           children: [
             Positioned(
-              top: size.width*0.05,
+              top: constrains.maxWidth==360&&constrains.maxHeight==640?size.width*0.01:size.width*0.05,
               child: Container(
                 height:size.width*0.08,
                 width: size.width,
@@ -35,7 +35,7 @@ class _FourthScreenState extends State<FourthScreen> {
               ),
             ),
             Positioned(
-              top: size.width*0.14,
+              top: constrains.maxWidth==360&&constrains.maxHeight==640?size.width*0.09:size.width*0.14,
               child:Container(
                 alignment: Alignment.center,
                 height: size.width*0.05,
@@ -53,7 +53,7 @@ class _FourthScreenState extends State<FourthScreen> {
             ),
           ],
         ),
-      ),
+      )),
     );
   }
 }

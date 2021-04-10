@@ -172,107 +172,176 @@ class _MainScreenState extends State<MainScreen> with AddMess{
         child: DrawerScreen.screen(),
       ),
       body:Consumer<MainProvider>(
-        builder: (context,value,child)=>Stack(
-          children: [
-            PageView(
-              controller: controller,
-              onPageChanged: (index){
-                value.getIndex(index);
-                value.setAppBarColor();
-                print(value.indexInfo);
-              },
+        builder: (context,value,child)=>LayoutBuilder(
+          builder: (context,constrains) {
+            return Stack(
               children: [
-                HomeScreen.screen(),
-                SecondScreen.screen(),
-                ThirdScreen.screen(),
-                FourthScreen.screen(),
-                FiveScreen.screen(),
-              ],
-            ),
-            Positioned(
-              bottom: 0.0,
-              child:GestureDetector(
-                child: ClipPath(
-                  clipper:MainClipper(),
-                  child: Container(
-                    height:size.height*0.74,
-                    width:size.width,
-                    color: Colors.white,
-                    child: GridView.count(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.only(top: size.width*0.34,left: size.width*0.1,right: size.width*0.1),
-                      crossAxisCount:2,
-                      mainAxisSpacing: size.width*0.025,
-                      crossAxisSpacing: size.width*0.08,
-                      children: [
-                        //#internet paket
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.globe,text:value.internetTextMain),onTap:(){
-                          if(value.indexInfo==0){
-                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPage.screen(firstPageColor)));
-                          }else if(value.indexInfo==1){
-                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPageMobi.screen(secondPageColor)));
-                          }else if(value.indexInfo==2){
-                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPageUcell.screen(thirdPageColor)));
-                          }else if(value.indexInfo==3){
-                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPageBeeline.screen(fourthPageColor)));
-                          }else if(value.indexInfo==4){
-                            Navigator.of(context).push(MaterialPageRoute(builder:(context)=>InternetPagePerfectum.screen(fivePageColor)));
-                          }
-                        }),
-                        //#ussd kodlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.commentAlt,text:value.ussdKodlarMain),onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder:(context)=>UssdPage.screen(value.currentColInfo,value.indexInfo)));
-                        }),
-                        //#tarif rejalari
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.simCard,text:value.tarifRejalariMain),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=>TarifPage.screen(value.currentColInfo,value.indexInfo))),),
-                        //#xizmatlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.atom,text:value.xizmatlarMain),onTap:()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>XizmatlarPage.screen(value.currentColInfo,value.indexInfo)))),
-                        //#daqiqa toplamlari
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.clock,text:value.daqiqaToplamlarMain),),
-                        //#sms to`plamlar
-                        InkWell(child:_myCardWidgets(context,size: size,icon: FontAwesomeIcons.envelopeOpen,text:value.smsToplamlarMain),onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder:(context)=>SmsPage.screen(value.currentColInfo,value.indexInfo))),),
-                      ],
+                PageView(
+                  controller: controller,
+                  onPageChanged: (index) {
+                    value.getIndex(index);
+                    value.setAppBarColor();
+                    print(value.indexInfo);
+                  },
+                  children: [
+                    HomeScreen.screen(),
+                    SecondScreen.screen(),
+                    ThirdScreen.screen(),
+                    FourthScreen.screen(),
+                    FiveScreen.screen(),
+                  ],
+                ),
+                Positioned(
+                  bottom: 0.0,
+                  child: GestureDetector(
+                    child: ClipPath(
+                      clipper: MainClipper(),
+                      child: Container(
+                        height: size.height * 0.74,
+                        width: size.width,
+                        color: Colors.white,
+                        child: GridView.count(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.only(
+                              top: constrains.maxWidth == 360 &&
+                                  constrains.maxHeight == 640 ? size.width *
+                                  0.25 : size.width * 0.34,
+                              left: size.width * 0.1,
+                              right: size.width * 0.1),
+                          crossAxisCount: 2,
+                          mainAxisSpacing: constrains.maxWidth == 360 &&
+                              constrains.maxHeight == 640
+                              ? size.width * 0.008
+                              : size.width * 0.025,
+                          crossAxisSpacing: constrains.maxWidth == 360 &&
+                              constrains.maxHeight == 640
+                              ? size.width * 0.1
+                              : size.width * 0.08,
+                          children: [
+                            //#internet paket
+                            InkWell(child: _myCardWidgets(context, size: size,
+                                icon: FontAwesomeIcons.globe,
+                                text: value.internetTextMain), onTap: () {
+                              if (value.indexInfo == 0) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        InternetPage.screen(firstPageColor)));
+                              } else if (value.indexInfo == 1) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        InternetPageMobi.screen(
+                                            secondPageColor)));
+                              } else if (value.indexInfo == 2) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        InternetPageUcell.screen(
+                                            thirdPageColor)));
+                              } else if (value.indexInfo == 3) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        InternetPageBeeline.screen(
+                                            fourthPageColor)));
+                              } else if (value.indexInfo == 4) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        InternetPagePerfectum.screen(
+                                            fivePageColor)));
+                              }
+                              print(size.width);
+                              print(size.height);
+                            }),
+                            //#ussd kodlar
+                            InkWell(child: _myCardWidgets(context, size: size,
+                                icon: FontAwesomeIcons.commentAlt,
+                                text: value.ussdKodlarMain), onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      UssdPage.screen(value.currentColInfo,
+                                          value.indexInfo)));
+                            }),
+                            //#tarif rejalari
+                            InkWell(child: _myCardWidgets(context, size: size,
+                                icon: FontAwesomeIcons.simCard,
+                                text: value.tarifRejalariMain),
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          TarifPage.screen(value.currentColInfo,
+                                              value.indexInfo))),),
+                            //#xizmatlar
+                            InkWell(child: _myCardWidgets(context, size: size,
+                                icon: FontAwesomeIcons.atom,
+                                text: value.xizmatlarMain),
+                                onTap: () =>
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) =>
+                                            XizmatlarPage.screen(
+                                                value.currentColInfo,
+                                                value.indexInfo)))),
+                            //#daqiqa toplamlari
+                            InkWell(child: _myCardWidgets(context, size: size,
+                                icon: FontAwesomeIcons.clock,
+                                text: value.daqiqaToplamlarMain),),
+                            //#sms to`plamlar
+                            InkWell(child: _myCardWidgets(context, size: size,
+                                icon: FontAwesomeIcons.envelopeOpen,
+                                text: value.smsToplamlarMain),
+                              onTap: () =>
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          SmsPage.screen(value.currentColInfo,
+                                              value.indexInfo))),),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              top:size.width*0.15,
-              left: size.width*0.025,
-              child: IconButton(
-                icon: FaIcon(FontAwesomeIcons.caretLeft,size: size.width*0.1,color: mod.currentColInfo,),
-                onPressed: (){
-                  value.decrement();
-                  controller?.animateToPage(value.indexInfo,duration: Duration(milliseconds: 250),curve: Curves.easeIn);
-                },
-              ),
-            ),
-            Positioned(
-              top:size.width*0.15,
-              right: size.width*0.025,
-              child:IconButton(
-                icon:FaIcon(FontAwesomeIcons.caretRight,size: size.width*0.1,color: mod.currentColInfo,),
-                onPressed: (){
-                   value.increment();
-                   controller?.animateToPage(value.indexInfo,duration: Duration(milliseconds:300),curve: Curves.easeIn);
-                },
-              ),
-            ),
-            Positioned(
-              top: size.width/4.4,
-              child:Container(
-                width:size.width,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: indicatorBuilder(context,currentIndex),
+                Positioned(
+                  top: size.width * 0.15,
+                  left: size.width * 0.025,
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.caretLeft, size: size.width * 0.1,
+                      color: mod.currentColInfo,),
+                    onPressed: () {
+                      value.decrement();
+                      controller?.animateToPage(
+                          value.indexInfo, duration: Duration(
+                          milliseconds: 250), curve: Curves.easeIn);
+                    },
+                  ),
                 ),
-              ),
-            ),
-          ],
-        ),
+                Positioned(
+                  top: size.width * 0.15,
+                  right: size.width * 0.025,
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.caretRight, size: size.width * 0.1,
+                      color: mod.currentColInfo,),
+                    onPressed: () {
+                      value.increment();
+                      controller?.animateToPage(
+                          value.indexInfo, duration: Duration(
+                          milliseconds: 300), curve: Curves.easeIn);
+                    },
+                  ),
+                ),
+                Positioned(
+                  top: constrains.maxWidth == 360 && constrains.maxHeight == 640?size.width /5.5:size.width / 4.4,
+                  child: Container(
+                    width: size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: indicatorBuilder(context, currentIndex),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }),
       ),
       bottomNavigationBar: _myBottomNav(context),
     );
