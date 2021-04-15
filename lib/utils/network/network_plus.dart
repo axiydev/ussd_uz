@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 class NetworkD{
 static final String BASE_URL="greatcentralasia1.uz";
 
-
 static String API_INTERNET='/api/network';
 static String API_USSD='/api/ussd';
 
@@ -13,6 +12,9 @@ static String API_SERVICE_CATEGORY='/api/serviceCategory';
 static String API_SMS='/api/sms';
 static String API_SMS_CATEGORY='/api/smsCategory';
 static String API_TARIF_REJALARI='/api/tarif';
+
+static String API_DAQIQA="/api/daqiqa";
+static String API_DAQIQA_CATEGORY="/api/daqiqaCategory";
 
 static Map<String,String> headers={
   'Content-type': 'application/json; charset=UTF-8',

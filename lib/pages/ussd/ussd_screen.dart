@@ -96,7 +96,7 @@ class _UssdPageState extends State<UssdPage> with AddMessText{
                           ),
                         );
                       },
-                        child: GestureDetector(child: myColumnWid(context,isUssd: true,package: lt![index],color:widget.col),onTap: ()=>showText(context,isUssd: true,package: lt![index],otherButton: 'Aktivlashtirish',),),
+                        child: GestureDetector(child:myColumnWid(context,isUssd: true,package: lt![index],color:widget.col),onTap: ()=>showText(context,isUssd: true,package: lt![index],otherButton: 'Aktivlashtirish',),),
                     ))
                 )
             ),

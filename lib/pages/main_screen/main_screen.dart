@@ -5,11 +5,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:ussd_uz/constants/constant.dart';
+import 'package:ussd_uz/models/daqiqa/daqiqa_model.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
 import 'package:ussd_uz/models/sms/sms_model.dart';
 import 'package:ussd_uz/models/tarif/tarif_model.dart';
 import 'package:ussd_uz/models/ussd/ussd_common.dart';
+import 'package:ussd_uz/pages/daqiqalar/daqiqalar_page.dart';
 import 'package:ussd_uz/pages/drawer_page/drawer_screen.dart';
 import 'package:ussd_uz/pages/five_page/five_screen.dart';
 import 'package:ussd_uz/pages/fourth_page/fourth_screen.dart';
@@ -54,6 +56,8 @@ class _MainScreenState extends State<MainScreen> with AddMess{
     getSms();
     getSmsCategory();
     getTarif();
+    getDaqiqa();
+    getDaqiqaCategory();
   }
   void getT()async{
     NetworkD.GET(NetworkD.API_INTERNET,NetworkD.paramsEmpty()).then((response) async {
@@ -107,10 +111,30 @@ class _MainScreenState extends State<MainScreen> with AddMess{
       print(tarif.list.first.image);
     }).catchError((err)=>print("TARIF_ERROR:::${err}"));
   }
+  void getDaqiqa()async{
+    NetworkD.GET(NetworkD.API_DAQIQA,NetworkD.paramsEmpty()).then((response)async{
+      DaqiqaMod daqiqa=new DaqiqaMod.fromJson(jsonDecode(response!));
+      await HiveDB.storeDaqiqaInfo(daqiqa);
+      print(daqiqa.list.first.name);
+    }).catchError((err)=>print("DAQIQAERROR::${err}"));
+  }
+  void getDaqiqaCategory()async{
+    NetworkD.GET(NetworkD.API_DAQIQA_CATEGORY,NetworkD.paramsEmpty()).then((response)async{
+      DaqiqaModCategory daqiqaCategory=new DaqiqaModCategory.fromJson(jsonDecode(response!));
+      await HiveDB.storeDaqiqaCategoryInfo(daqiqaCategory);
+      print(daqiqaCategory.list.first.name);
+    }).catchError((err)=>print("DAQIQA_CATEGORY_ERROR::${err}"));
+  }
+  @override
+  void dispose() {
+    print("disssssssssssss");
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final mod=Provider.of<MainProvider>(context);
     final Size size=MediaQuery.of(context).size;
+    print('builddddddddddddddddddddddddddd');
     return Scaffold(
       appBar:AppBar(
           leading: Builder(
@@ -120,7 +144,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
               )
           ),
           backgroundColor:mod.currentColor,
-          elevation: 0.0,
+          elevation: 0.0, 
           bottomOpacity: 0.0,
           actions:[
             InkWell(
@@ -206,7 +230,7 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                           padding: EdgeInsets.only(
                               top: constrains.maxWidth == 360 &&
                                   constrains.maxHeight == 640 ? size.width *
-                                  0.25 : size.width * 0.34,
+                                  0.25 : size.width * 0.3,
                               left: size.width * 0.1,
                               right: size.width * 0.1),
                           crossAxisCount: 2,
@@ -282,7 +306,11 @@ class _MainScreenState extends State<MainScreen> with AddMess{
                             //#daqiqa toplamlari
                             InkWell(child: _myCardWidgets(context, size: size,
                                 icon: FontAwesomeIcons.clock,
-                                text: value.daqiqaToplamlarMain),),
+                                text: value.daqiqaToplamlarMain),
+                                 onTap: ()=>Navigator.of(context).push(
+                                     MaterialPageRoute(
+                                         builder:(context)=>DaqiqaPage.screen(value.currentColInfo,value.indexInfo))),
+                            ),
                             //#sms to`plamlar
                             InkWell(child: _myCardWidgets(context, size: size,
                                 icon: FontAwesomeIcons.envelopeOpen,

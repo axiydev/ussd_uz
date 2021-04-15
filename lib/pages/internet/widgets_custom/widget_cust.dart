@@ -52,7 +52,7 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
                   Flexible(child:Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),)
                 ],
               ):Center(
-                child:Text('${package?.about}'),
+                child:Text('${package?.about}',maxLines: 5,),
               ),
             ),
           ),
@@ -61,7 +61,7 @@ Widget myColumnWid(BuildContext context,{InternetPackages? package,required Colo
     ),
   );
 }
-Widget myColumnWidService(BuildContext context,{InternetPackages? package,required Color color,bool isUssd=false}){
+Widget myColumnWidService(BuildContext context,{InternetPackages? package,required Color color,bool isUssd=false,isDaqiqa=false}){
   final Size size=MediaQuery.of(context).size;
   return Container(
     height: size.width*0.3,
@@ -104,8 +104,8 @@ Widget myColumnWidService(BuildContext context,{InternetPackages? package,requir
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(child: Text('${package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),),
-                  Flexible(child:Text('${package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),),
+                  Flexible(child: Text('${isDaqiqa?package?.about:package?.mb}',textAlign:TextAlign.center,style: TextStyle(fontSize:17,fontWeight: FontWeight.w600,color: color),),),
+                  Flexible(child:Text('${isDaqiqa?package?.mb:package?.about}',style:TextStyle(fontSize: 13,color:Colors.grey[800])),),
                 ],
               ):Center(
                 child:Text('${package?.about}'),

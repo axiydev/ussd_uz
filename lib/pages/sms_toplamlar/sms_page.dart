@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:ussd_uz/constants/constant.dart';
+import 'package:ussd_uz/models/daqiqa/daqiqa_model.dart';
 import 'package:ussd_uz/models/internet/InfoModel.dart';
 import 'package:ussd_uz/models/internet/internet_model.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
@@ -48,8 +49,8 @@ class _SmsPageState extends State<SmsPage> with AddMessText,InfoShow{
       listEmp11=[],
       listEmp12=[];
   void getInfoServicePack()async{
-   smsMod=HiveDB.loadSmsInfo();
-   smsModCategory=HiveDB.loadSmsCategoryInfo();
+    smsMod=HiveDB.loadSmsInfo();
+    smsModCategory=HiveDB.loadSmsCategoryInfo();
    if(widget.ind==0) {
      smsModCategory?.list.forEach((item) {
        if(item.operator==2){

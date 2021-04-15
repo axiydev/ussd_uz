@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:ussd_uz/models/daqiqa/daqiqa_model.dart';
 import 'package:ussd_uz/models/internet/internet_screen_model.dart';
 import 'package:ussd_uz/models/service/service_model.dart';
 import 'package:ussd_uz/models/sms/sms_model.dart';
@@ -105,5 +106,30 @@ class HiveDB{
   static removeTarifInfo()async{
     await box.delete('tarif');
   }
+//#daqiqa
+  static storeDaqiqaInfo(DaqiqaMod objDaq)async{
+    await box.put('daqiqa',objDaq.toJson());
+  }
 
+  static DaqiqaMod loadDaqiqaInfo(){
+    var mp=box.get('daqiqa');
+    return DaqiqaMod.fromJson(mp);
+  }
+
+  static removeDaqiqaInfo()async{
+    await box.delete('daqiqa');
+  }
+  //#daqiqaCategory
+  static storeDaqiqaCategoryInfo(DaqiqaModCategory objDaqMod)async{
+    await box.put('daqiqaCategory',objDaqMod.toJson());
+  }
+
+  static DaqiqaModCategory loadDaqiqaCategoryInfo(){
+    var mp=box.get('daqiqaCategory');
+    return DaqiqaModCategory.fromJson(mp);
+  }
+
+  static removeDaqiqaCategoryInfo()async{
+    await box.delete('daqiqaCategory');
+  }
 }

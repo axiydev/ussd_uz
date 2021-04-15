@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ussd_uz/constants/constant.dart';
+import 'package:ussd_uz/pages/daqiqalar/daqiqalar_page.dart';
 import 'package:ussd_uz/pages/home_screen/home_screen.dart';
 import 'package:ussd_uz/pages/internet/internet_paketlar/internet_page.dart';
 import 'package:ussd_uz/pages/language_page/language_screen.dart';
@@ -26,8 +27,9 @@ class MyApp extends StatelessWidget {
       routes: {
         MainScreen.id:(context)=>MainScreen.screen(),
         InternetPage.id:(context)=>InternetPage.screen(firstPageColor),
+        DaqiqaPage.id:(context)=>DaqiqaPage.screen(firstPageColor,0)
       },
-      home: MainScreen.screen(),
+      home: SplashScreen.screen(),
       debugShowCheckedModeBanner: false,
     );
   }
