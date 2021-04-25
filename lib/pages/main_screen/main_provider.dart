@@ -5,14 +5,15 @@ import 'package:ussd_uz/constants/constant.dart';
 class MainProvider with ChangeNotifier{
   int indeX=0;
   Color currentColor=firstPageColor;
-  String currentLogo=firstPageLogo;
-  String currentMotiv=firstPageMotiv;
+  String  currentLogo=firstPageLogo;
+  String  currentMotiv=firstPageMotiv;
   String  internetTextMain=internetText;
   String  ussdKodlarMain=ussdKodlar;
   String  tarifRejalariMain=tarifRejalari;
   String  xizmatlarMain=xizmatlar;
   String  daqiqaToplamlarMain=daqiqaToplamalr;
   String  smsToplamlarMain=smsToplamlar;
+
   void increment(){
     indeX++;
     notifyListeners();
